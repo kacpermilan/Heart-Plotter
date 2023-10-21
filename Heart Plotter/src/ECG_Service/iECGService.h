@@ -1,0 +1,30 @@
+/*
+File - iECGService
+Desc - definition of interface for ECGService module, the main driver for ECG analysis
+*/
+
+
+#include "../Common_Types/CommonTypes.h"
+#include "../ECG_Baseline/iECGBaseline.h"
+#include "../Heart_Class/iHeartClass.h"
+#include "../HRV1/iHRV1.h"
+#include "../HRV2/iHRV2.h"
+#include "../HRV_DFA/iHRVDFA.h"
+#include "../R_Peaks/iRPeaks.h"
+#include "../ST_Segment/iSTSegment.h"
+#include "../T_Wave_Alt/iTWaveAlt.h"
+#include "../Waves/iWaves.h"
+
+#include <vector>
+#include <memory>
+
+
+class iECGService
+{
+public:
+	// virtual d-tor
+	virtual ~iECGService() = default;
+
+	// default c-tor delete
+	iECGService() = delete;
+};
