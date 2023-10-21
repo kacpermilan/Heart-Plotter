@@ -23,15 +23,16 @@ public:
 		// TODO define and add filter parameters
 	};
 
+	virtual ~iECGBaseline() = default;
 
 	// Setter method
-	OperationStatus set_filter_type(iECGBaseline::FilterType filterType) = 0;
+	virtual OperationStatus set_filter_type(iECGBaseline::FilterType filterType) = 0;
 	
 	// Setter method
-	OperationStatus set_filter_parameters(iECGBaseline::FilterParameters filterParams) = 0;
+	virtual OperationStatus set_filter_parameters(iECGBaseline::FilterParameters filterParams) = 0;
 
 	// Filter input signal
-	OperationStatus filter_signal(std::vector<DataPoint> inputSignal) = 0;
+	virtual OperationStatus filter_signal(std::vector<DataPoint> inputSignal) = 0;
 
 
 	// Type of filter used to filter signal
