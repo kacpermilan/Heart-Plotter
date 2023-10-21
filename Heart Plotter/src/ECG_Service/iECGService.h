@@ -14,6 +14,8 @@ Desc - definition of interface for ECGService module, the main driver for ECG an
 #include "../ST_Segment/iSTSegment.h"
 #include "../T_Wave_Alt/iTWaveAlt.h"
 #include "../Waves/iWaves.h"
+#include "../Input/iInput.h"
+#include "../Output/iOutput.h"
 
 #include <vector>
 #include <memory>
@@ -25,6 +27,28 @@ public:
 	// virtual d-tor
 	virtual ~iECGService() = default;
 
-	// default c-tor delete
-	iECGService() = delete;
+	// perform ECG analysis, main functionality
+	virtual OperationStatus perform_ecg_analysis() = 0;
+
+	// getter method
+	virtual Parameters get_parameters() = 0;
+
+	// get plot data, depending on used plot type
+	virtual std::vector<DataPoint> get_plot_data(PlotType) = 0;
+	
+
+	// modules
+	std::unique_ptr<iECGBaseline> ecgbaseline;
+	std::unique_ptr<iHeartClass> heartclass;
+	std::unique_ptr<iHRV1> hrv1;
+	std::unique_ptr<iHRV2> hrv2;
+	std::unique_ptr<iHRVDFA> hrvdfa;
+	std::unique_ptr<iRPeaks> rpeaks;
+	std::unique_ptr<iSTSegment> stsegment;
+	std::unique_ptr<iTWaveAlt> twavealt;
+	std::unique_ptr<iWaves> waves;
+
+	// input/output
+	std::unique_ptr<iInput> input;
+	std::unique_ptr<iOutput> output;
 };
