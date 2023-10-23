@@ -47,8 +47,4 @@ public:
 	std::unique_ptr<iSTSegment> stsegment;
 	std::unique_ptr<iTWaveAlt> twavealt;
 	std::unique_ptr<iWaves> waves;
-
-	// input/output
-	std::unique_ptr<iInput> input;
-	std::unique_ptr<iOutput> output;
 };
