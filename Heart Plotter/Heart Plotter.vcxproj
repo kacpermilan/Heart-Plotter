@@ -147,6 +147,9 @@
     <ClInclude Include="src\T_Wave_Alt\iTWaveAlt.h" />
     <ClInclude Include="src\Waves\iWaves.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ECG_Service\temp_main.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
