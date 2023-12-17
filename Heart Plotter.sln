@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Heart Plotter", "Heart Plotter\Heart Plotter.vcxproj", "{3C686FE0-FC82-4E8C-B02D-BBF69E1CE8B8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Heart Plotter - App", "Heart Plotter - App\Heart Plotter - App.vcxproj", "{16C3F43C-4C48-4CE0-B220-A3903A70A4CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{3C686FE0-FC82-4E8C-B02D-BBF69E1CE8B8}.Release|x64.Build.0 = Release|x64
 		{3C686FE0-FC82-4E8C-B02D-BBF69E1CE8B8}.Release|x86.ActiveCfg = Release|Win32
 		{3C686FE0-FC82-4E8C-B02D-BBF69E1CE8B8}.Release|x86.Build.0 = Release|Win32
+		{16C3F43C-4C48-4CE0-B220-A3903A70A4CB}.Debug|x64.ActiveCfg = Debug|x64
+		{16C3F43C-4C48-4CE0-B220-A3903A70A4CB}.Debug|x64.Build.0 = Debug|x64
+		{16C3F43C-4C48-4CE0-B220-A3903A70A4CB}.Debug|x86.ActiveCfg = Debug|x64
+		{16C3F43C-4C48-4CE0-B220-A3903A70A4CB}.Debug|x86.Build.0 = Debug|x64
+		{16C3F43C-4C48-4CE0-B220-A3903A70A4CB}.Release|x64.ActiveCfg = Release|x64
+		{16C3F43C-4C48-4CE0-B220-A3903A70A4CB}.Release|x64.Build.0 = Release|x64
+		{16C3F43C-4C48-4CE0-B220-A3903A70A4CB}.Release|x86.ActiveCfg = Release|x64
+		{16C3F43C-4C48-4CE0-B220-A3903A70A4CB}.Release|x86.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
