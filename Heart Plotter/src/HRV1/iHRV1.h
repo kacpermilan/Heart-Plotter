@@ -22,6 +22,7 @@ public:
 		std::vector<double> r_peaks) = 0;
 
 
+	// Time parameters
 	// RR_mean
 	double RR_mean;
 
@@ -36,4 +37,23 @@ public:
 
 	// pNN50
 	double pNN50;
+
+	// Frequency parameters
+	// ULF
+	double ULF;
+
+	// VLF
+	double VLF;
+
+	// LF
+	double LF;
+
+	// HF
+	double HF;
+
+	// LF/HF
+	double LFHF;
+
+	// TP
+	double TP;
 };
