@@ -10,7 +10,7 @@
 #define M_PI 3.14159265358979323846
 
 
-OperationStatus detect_using_Pan_Tompkins(
+//OperationStatus detect_using_Pan_Tompkins(
 
 using namespace std;
 
@@ -178,16 +178,16 @@ std::vector<int> PanTompkins::GetPeaks(std::shared_ptr<const std::vector<float>>
 
     }
 
-    vector<int> peaks_ekg; // in electrocardiogram_signal find maximums which are closer than 150ms to integrated signal peak
-    for_each(peaks.begin(), peaks.end(), [electrocardiogram_signal, &peaks_ekg, this](float peak)
+    vector<int> r_peaks; // in electrocardiogram_signal find maximums which are closer than 150ms to integrated signal peak
+    for_each(peaks.begin(), peaks.end(), [electrocardiogram_signal, &r_peaks, this](float peak)
         {
             auto local = max_element(electrocardiogram_signal->begin() + peak - int(0.150 * m_fs), electrocardiogram_signal->begin() + peak + int(0.150 * m_fs));
             int local_idx = distance(electrocardiogram_signal->begin(), local);
-            peaks_ekg.push_back(local_idx);
+            r_peaks.push_back(local_idx);
         });
 
-    return move(peaks_ekg);
+    return move(r_peaks);
 
 }
 
-)
+//)
