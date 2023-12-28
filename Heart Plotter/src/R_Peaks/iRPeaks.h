@@ -20,5 +20,5 @@ public:
 
 
 	// timestamps (x value) of detected R peaks
-	std::vector<double> r_peaks;
+	std::vector<int> r_peaks;
 };

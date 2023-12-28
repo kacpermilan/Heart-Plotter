@@ -1,21 +1,35 @@
 ﻿#include "RPeaks.h"
-
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <algorithm>
 #include <numeric>
 
+
 #include <math.h>
 #define M_PI 3.14159265358979323846
 
-
-OperationStatus detect_using_Pan_Tompkins() {
+//override OperationStatus detect_using_Pan_Tompkins()
+OperationStatus RPeaks::detect_using_Pan_Tompkins(std::vector<DataPoint> signal) {
+    std::vector<float> electrocardiogram_signal;
+    for(const auto& data_point : signal) //autonumeracja
+    {
+        electrocardiogram_signal.push_back(static_cast<float>(data_point.y)); 
+    }
+    
+    std::shared_ptr<const std::vector<float>> shared_ecg_signal = std::make_shared<const std::vector<float>>(electrocardiogram_signal);
+    RPeaks::r_peaks = RPeaks::GetPeaks(shared_ecg_signal);
     return OperationStatus::SUCCESS;
 }
+
+OperationStatus RPeaks::detect_using_Hilbert_transform(std::vector<DataPoint> signal) {
+    return OperationStatus::SUCCESS;
+}
+
+
     using namespace std;
 
-    void PanTompkins::Normalize(vector<float>&v) const
+    void RPeaks::Normalize(vector<float>&v) const
     {
 
         float MAX = *std::max_element(begin(v), end(v));
@@ -30,7 +44,7 @@ OperationStatus detect_using_Pan_Tompkins() {
 
 
     template<typename T>
-    std::vector<T> PanTompkins::Conv(std::vector<T> const& f, std::vector<T> const& g) const
+    std::vector<T> RPeaks::Conv(std::vector<T> const& f, std::vector<T> const& g) const
     {
         int const nf = f.size();
         int const ng = g.size();
@@ -43,11 +57,11 @@ OperationStatus detect_using_Pan_Tompkins() {
             for (auto j(jmn); j <= jmx; ++j)
                 out[i] += (f[j] * g[i - j]);
         }
-        return move(out);
+        return out;
     }
 
 
-    vector<float> PanTompkins::Filter(vector<float> signal, float fc1, float fc2) const
+    vector<float> RPeaks::Filter(vector<float> signal, float fc1, float fc2) const
     {
 
         const float M = 5.0;
@@ -108,7 +122,7 @@ OperationStatus detect_using_Pan_Tompkins() {
     }
 
 
-    std::vector<int> PanTompkins::GetPeaks(std::shared_ptr<const std::vector<float>> electrocardiogram_signal, int fs)
+    std::vector<int> RPeaks::GetPeaks(std::shared_ptr<const std::vector<float>> electrocardiogram_signal, int fs)
     {
         m_fs = fs;
 
@@ -187,7 +201,7 @@ OperationStatus detect_using_Pan_Tompkins() {
                 r_peaks.push_back(local_idx);
             });
 
-        return move(r_peaks);
+        return r_peaks;
 
     }
 

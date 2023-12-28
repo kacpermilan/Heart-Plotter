@@ -9,18 +9,19 @@
  */
 
 
-#include "iRPeaks.h  "
+#include "iRPeaks.h"
 #include <vector>
 #include <memory>
 
 
-class PanTompkins
+class RPeaks : public iRPeaks
 {
 public:
-    PanTompkins() = default;
+    RPeaks() = default;
 
 
-    OperationStatus detect_using_Pan_Tompkins();
+    OperationStatus detect_using_Pan_Tompkins(std::vector<DataPoint> signal);
+    OperationStatus detect_using_Hilbert_transform(std::vector<DataPoint> signal);
     std::vector<int> GetPeaks(std::shared_ptr<const std::vector<float>> electrocardiogram_signal, int fs = 360);
 
 private:
