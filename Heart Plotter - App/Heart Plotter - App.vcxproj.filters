@@ -32,9 +32,6 @@
     <QtMoc Include="HeartPlotterApp.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClCompile Include="HeartPlotterApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <None Include="Heart Plotter - App.ico">
       <Filter>Resource Files</Filter>
     </None>
@@ -47,6 +44,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qcustomplot\qcustomplot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HeartPlotterApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
