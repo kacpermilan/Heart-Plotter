@@ -25,13 +25,13 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
 
     // Create a graph 0 and set data
     QVector<double> xData, yData; // Add your data here
-    xData << 1 << 2 << 3; yData << 1 << 4 << 9;
+    xData << 1 << 2 << 3;
+    yData << 1 << 4 << 9;
 
     customPlot->addGraph();
     customPlot->graph(0)->setPen(QPen(Qt::blue));
     customPlot->graph(0)->setData(xData, yData);
     customPlot->graph(0)->setName("Data");
-
 
     // Create a graph 1 and set data
     customPlot->addGraph();
@@ -59,6 +59,29 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
         dataTable->setItem(i, 0, itemX);
         dataTable->setItem(i, 1, itemY);
     }
+
+    // Take a screenshot of the QCustomPlot widget
+    QPixmap pixmap = customPlot->toPixmap();
+
+    // Extract colors and create an RGB table from the screenshot
+    std::vector<QColor> rgbTable;
+    for (int y = 0; y < pixmap.height(); ++y) {
+        for (int x = 0; x < pixmap.width(); ++x) {
+            QColor color = pixmap.toImage().pixelColor(x, y);
+            rgbTable.push_back(color);
+        }
+    }
+
+    // Show RGB values in a QMessageBox
+    QString rgbValues;
+    for (const QColor& color : rgbTable) {
+        rgbValues += QString("RGB values: %1, %2, %3\n")
+            .arg(color.red())
+            .arg(color.green())
+            .arg(color.blue());
+    }
+
+    QMessageBox::information(this, "RGB Values", rgbValues);
 
     // Rescale axes and replot
     customPlot->rescaleAxes();
