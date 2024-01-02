@@ -67,6 +67,14 @@
     <ClInclude Include="src\Waves\iWaves.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\R_Peaks\Rpeaks.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\R_Peaks\RPeaks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ECG_Service\temp_main.cpp">
