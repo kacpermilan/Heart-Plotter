@@ -1,22 +1,22 @@
 #include "HRV1.h"
 
-#define PI 3.14159265
+#define PI 3.14159265358979323846
 
 
 OperationStatus HRV1::calculate_time_parameters(std::vector<DataPoint> signal,
-	std::vector<double> r_peaks)
+	std::vector<int> r_peaks)
 {
 	OperationStatus status = ERROR;
 
 	try
 	{
-		arma::vec r_peaks_sig(r_peaks);
-		r_peaks_sig = r_peaks_sig * 1000; // to [ms]
-		RR_mean = arma::mean(r_peaks_sig);
+		arma::vec r_peaks_intervals = prepare_data(signal, r_peaks);
 
-		SDNN = arma::stddev(r_peaks_sig);
+		RR_mean = arma::mean(r_peaks_intervals);
 
-		arma::vec RR_diffs = arma::abs(arma::diff(r_peaks_sig));
+		SDNN = arma::stddev(r_peaks_intervals);
+
+		arma::vec RR_diffs = arma::abs(arma::diff(r_peaks_intervals));
 
 		arma::mat pow_sig = arma::pow(RR_diffs, 2);
 		double mean_val = arma::mean(arma::mean(pow_sig));
@@ -39,19 +39,19 @@ OperationStatus HRV1::calculate_time_parameters(std::vector<DataPoint> signal,
 
 
 OperationStatus HRV1::calculate_frequency_parameters(std::vector<DataPoint> signal,
-	std::vector<double> r_peaks)
+	std::vector<int> r_peaks)
 {
 	OperationStatus status = ERROR;
 
 	try
 	{
-		arma::vec r_peaks_sig(r_peaks);
-		arma::vec t = arma::cumsum(r_peaks_sig);
-		r_peaks_sig = r_peaks_sig * 1000; // to [ms]
-		r_peaks_sig = r_peaks_sig - arma::mean(r_peaks_sig);
+		arma::vec r_peaks_intervals = prepare_data(signal, r_peaks);
+		arma::vec t = arma::cumsum(r_peaks_intervals) / 1000;
+		
+		r_peaks_intervals = r_peaks_intervals - arma::mean(r_peaks_intervals);
 
 		double x_time_length = t.back();
-		double number_of_samples = r_peaks_sig.n_elem;
+		double number_of_samples = r_peaks_intervals.n_elem;
 		double x_period = x_time_length / number_of_samples;
 
 		// set frequnecy vector 
@@ -63,7 +63,7 @@ OperationStatus HRV1::calculate_frequency_parameters(std::vector<DataPoint> sign
 		// interpolation
 		arma::vec t_interp = arma::regspace(t[0], x_period, x_period * (number_of_samples - 1));
 		arma::vec r_peaks_interp;
-		arma::interp1(t, r_peaks_sig, t_interp, r_peaks_interp, "linear");
+		arma::interp1(t, r_peaks_intervals, t_interp, r_peaks_interp, "linear");
 		r_peaks_interp = r_peaks_interp - arma::mean(r_peaks_interp);
 
 		// calculate periodogram
@@ -132,4 +132,21 @@ arma::rowvec HRV1::my_periodogram(arma::rowvec f_vec, arma::vec signal_interp, a
 	P = (arma::pow(sum_cos, 2) + arma::pow(sum_sin, 2)) / N;
 
 	return P;
+}
+
+// calculating intervals between R peaks in [ms], assuming that r_peaks is vector of indices where R peaks are located
+arma::vec HRV1::prepare_data(std::vector<DataPoint> signal, std::vector<int> r_peaks)
+{
+	std::sort(r_peaks.begin(), r_peaks.end());
+	arma::vec t = arma::zeros(r_peaks.size());
+
+	for (int i = 0; i < r_peaks.size(); i++)
+	{
+		t(i) = signal[r_peaks[i]].x;
+	}
+
+	arma::vec r_peaks_sig = arma::diff(t);
+	r_peaks_sig = r_peaks_sig * 1000; // to [ms]
+
+	return r_peaks_sig;
 }

@@ -15,11 +15,11 @@ public:
 	
 	// calculate time parameters of ECG signal
 	virtual OperationStatus calculate_time_parameters(std::vector<DataPoint> signal, 
-		std::vector<double> r_peaks) = 0;
+		std::vector<int> r_peaks) = 0;
 	
 	// calculate frequency parameters of ECG signal
 	virtual OperationStatus calculate_frequency_parameters(std::vector<DataPoint> signal,
-		std::vector<double> r_peaks) = 0;
+		std::vector<int> r_peaks) = 0;
 
 
 	// Time parameters
