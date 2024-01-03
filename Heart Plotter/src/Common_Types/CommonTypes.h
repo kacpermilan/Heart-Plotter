@@ -1,3 +1,4 @@
+#pragma once
 /*
 File - CommonTypes.h
 Desc - Definitions for common datatypes and enums used in project
