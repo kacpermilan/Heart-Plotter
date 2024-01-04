@@ -13,8 +13,11 @@ public:
 	virtual ~iInput() = default;
 
 	/// Load data from <filepath>
-	virtual OperationStatus  load_data(std::string filepath) = 0;
+	virtual OperationStatus load_data(std::string filename) = 0;
 
 	/// Get loaded data as a vector of DataPoint struct
-	virtual std::vector<DataPoint> get_preprocessed_data() = 0;
+	virtual std::vector<DataPoint> get_preprocessed_data(std::string filename) = 0;
+	/// Get loaded data as a vector of DataPoint struct
+	
+	
 };
