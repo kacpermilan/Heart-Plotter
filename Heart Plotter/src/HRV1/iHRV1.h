@@ -3,6 +3,8 @@ File - iHRV.h
 Desc - definition of interface for HRV1 module
 */
 
+#pragma once
+
 #include "../Common_Types/CommonTypes.h"
 
 #include <vector>

@@ -3,6 +3,7 @@ File - ECGBaseline.h
 Desc - definition of ECGBaseline class
 */
 
+#pragma once
 #include "iECGBaseline.h"
 
 class ECGBaseline : public iECGBaseline {

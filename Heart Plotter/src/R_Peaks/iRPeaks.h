@@ -3,6 +3,8 @@ File - iRPeaks.h
 Desc - definition of interface for RPeaks module
 */
 
+#pragma once
+
 #include "../Common_Types/CommonTypes.h"
 
 #include <vector>
