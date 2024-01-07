@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string> 
-#include <wfdb/wfdb.h>
+#include <wfdb.h>
 
 
 OperationStatus load_data(std::string record){
