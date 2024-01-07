@@ -1,9 +1,8 @@
 ﻿#include "RPeaks.h"
-#include <iostream>
-#include <fstream>
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <armadillo>
 
 #include <math.h>
 #define M_PI 3.14159265358979323846
