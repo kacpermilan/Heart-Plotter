@@ -1,9 +1,8 @@
 ﻿#include "RPeaks.h"
-#include <iostream>
-#include <fstream>
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <armadillo>
 
 
 #include <math.h>

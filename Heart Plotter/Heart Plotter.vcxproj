@@ -154,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ECG_Service\temp_main.cpp" />
+    <ClCompile Include="src\R_Peaks\RPeaks.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
