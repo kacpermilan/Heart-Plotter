@@ -141,11 +141,15 @@
     <ClInclude Include="src\HRV2\iHRV2.h" />
     <ClInclude Include="src\HRV_DFA\iHRVDFA.h" />
     <ClInclude Include="src\Input\iInput.h" />
+    <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\Output\iOutput.h" />
     <ClInclude Include="src\R_Peaks\iRPeaks.h" />
     <ClInclude Include="src\ST_Segment\iSTSegment.h" />
     <ClInclude Include="src\T_Wave_Alt\iTWaveAlt.h" />
     <ClInclude Include="src\Waves\iWaves.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Input\Input.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
