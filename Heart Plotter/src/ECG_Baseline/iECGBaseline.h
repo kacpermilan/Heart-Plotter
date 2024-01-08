@@ -2,6 +2,7 @@
 File - iECGBaseline.h
 Desc - definition of interface for ECGBaseline
 */
+
 #pragma once
 
 #include "../Common_Types/CommonTypes.h"

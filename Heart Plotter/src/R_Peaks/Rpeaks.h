@@ -1,3 +1,5 @@
+#pragma once
+
 #include "iRPeaks.h"
 #include <iostream>
 #include <fstream>
