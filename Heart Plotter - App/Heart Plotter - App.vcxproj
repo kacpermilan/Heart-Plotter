@@ -89,6 +89,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="qcpdocumentobject.cpp" />
     <ClCompile Include="qcustomplot\qcustomplot.cpp" />
     <QtRcc Include="HeartPlotterApp.qrc" />
     <QtUic Include="HeartPlotterApp.ui" />
@@ -100,6 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="qcustomplot\qcustomplot.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="qcpdocumentobject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
