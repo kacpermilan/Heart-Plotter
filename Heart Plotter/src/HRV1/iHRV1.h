@@ -3,6 +3,8 @@ File - iHRV.h
 Desc - definition of interface for HRV1 module
 */
 
+#pragma once
+
 #include "../Common_Types/CommonTypes.h"
 
 #include <vector>
@@ -15,13 +17,14 @@ public:
 	
 	// calculate time parameters of ECG signal
 	virtual OperationStatus calculate_time_parameters(std::vector<DataPoint> signal, 
-		std::vector<double> r_peaks) = 0;
+		std::vector<int> r_peaks) = 0;
 	
 	// calculate frequency parameters of ECG signal
 	virtual OperationStatus calculate_frequency_parameters(std::vector<DataPoint> signal,
-		std::vector<double> r_peaks) = 0;
+		std::vector<int> r_peaks) = 0;
 
 
+	// Time parameters
 	// RR_mean
 	double RR_mean;
 
@@ -36,4 +39,23 @@ public:
 
 	// pNN50
 	double pNN50;
+
+	// Frequency parameters
+	// ULF
+	double ULF;
+
+	// VLF
+	double VLF;
+
+	// LF
+	double LF;
+
+	// HF
+	double HF;
+
+	// LF/HF
+	double LFHF;
+
+	// TP
+	double TP;
 };

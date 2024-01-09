@@ -3,6 +3,8 @@ File - iRPeaks.h
 Desc - definition of interface for RPeaks module
 */
 
+#pragma once
+
 #include "../Common_Types/CommonTypes.h"
 
 #include <vector>
@@ -20,5 +22,5 @@ public:
 
 
 	// timestamps (x value) of detected R peaks
-	std::vector<double> r_peaks;
+	std::vector<int> r_peaks;
 };
