@@ -89,14 +89,17 @@ OperationStatus HRV1::calculate_frequency_parameters(std::vector<DataPoint> sign
 		LF = LF_power(0);
 		arma::mat VLF_power = arma::trapz(f_vec.elem(VLF_ind), P.elem(VLF_ind));
 		VLF = VLF_power(0);
-		arma::mat ULF_power = arma::trapz(f_vec.elem(ULF_ind), P.elem(ULF_ind));
-		ULF = ULF_power(0);
 		LFHF = LF / HF;
 
-		if (length_of_the_signal_in_hours > 24)
+		if (length_of_the_signal_in_hours > 24) {
+			arma::mat ULF_power = arma::trapz(f_vec.elem(ULF_ind), P.elem(ULF_ind));
+			ULF = ULF_power(0);
 			TP = HF + LF + VLF + ULF;
-		else
+		}
+		else {
+			ULF = -1; // if signal length is less than 24h, set ULF param to -1
 			TP = HF + LF + VLF;
+		}
 
 		status = SUCCESS;
 	}
