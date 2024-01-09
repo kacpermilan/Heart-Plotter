@@ -3,6 +3,8 @@ File - iHRVDFA.h
 Desc - definition of interface for HRVDFA module.
 */
 
+#pragma once
+
 #include "../Common_Types/CommonTypes.h"
 
 #include <vector>

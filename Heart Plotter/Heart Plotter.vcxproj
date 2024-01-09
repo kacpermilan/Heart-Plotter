@@ -104,12 +104,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Heart Plotter\lib\armadillo\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Heart Plotter\lib\armadillo\include;$(SolutionDir)\Heart Plotter\lib\gsl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Heart Plotter\lib\armadillo\examples\lib_win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Heart Plotter\lib\armadillo\examples\lib_win64;$(SolutionDir)\Heart Plotter\lib\gsl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>gslcblas.lib;gsl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -120,14 +121,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Heart Plotter\lib\armadillo\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Heart Plotter\lib\armadillo\include;$(SolutionDir)\Heart Plotter\lib\gsl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Heart Plotter\lib\armadillo\examples\lib_win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Heart Plotter\lib\armadillo\examples\lib_win64;$(SolutionDir)\Heart Plotter\lib\gsl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>gslcblas.lib;gsl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -138,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Common_Types\CommonTypes.h" />
+    <ClInclude Include="src\ECG_Baseline\ECGBaseline.h" />
     <ClInclude Include="src\ECG_Baseline\iECGBaseline.h" />
     <ClInclude Include="src\ECG_Service\iECGService.h" />
     <ClInclude Include="src\Heart_Class\iHeartClass.h" />
@@ -153,7 +156,9 @@
     <ClInclude Include="src\Waves\iWaves.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECG_Baseline\ECGBaseline.cpp" />
     <ClCompile Include="src\ECG_Service\temp_main.cpp" />
+    <ClCompile Include="src\R_Peaks\RPeaks.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
