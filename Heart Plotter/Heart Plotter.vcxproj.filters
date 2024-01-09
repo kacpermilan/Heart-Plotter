@@ -79,12 +79,18 @@
     <ClInclude Include="src\HRV1\HRV1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\HRV2\HRV2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\R_Peaks\RPeaks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\HRV1\HRV1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HRV2\HRV2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
