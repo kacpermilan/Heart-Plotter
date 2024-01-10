@@ -140,11 +140,11 @@ void HeartPlotterApp::on_actionSave_Document_triggered()
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         pnt->textEdit->document()->setPageSize(printer.pageRect().size());
 #else
-        auto sizem = printer.resolution();
-        auto pixelsm = printer.pageLayout().paintRectPixels(sizem).size();
-        auto textem = pnt->textEdit;
-        auto documenta = textem -> document();
-        documenta->setPageSize(pixelsm);
+        //auto sizem = printer.resolution();
+        //auto pixelsm = printer.pageLayout().paintRectPixels(sizem).size();
+        //auto textem = pnt->textEdit;
+        //auto documenta = textem -> document();
+        //documenta->setPageSize(pixelsm);
 #endif
         auto q = pnt->textEdit;
         auto w = q->document();
