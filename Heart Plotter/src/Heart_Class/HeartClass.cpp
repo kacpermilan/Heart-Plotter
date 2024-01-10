@@ -7,7 +7,7 @@ double pole(const std::vector<double>& signal, int QRS_onset, int QRS_offset);
 double dlugosc(const std::vector<double>& signal, int QRS_onset, int QRS_offset);
 std::vector<int> classifyEKG(const std::vector<double>& signal, const std::vector<int>& QRS_onset, const std::vector<int>& QRS_offset,
                              const std::vector<double>& P_wave, const std::vector<double>& RR_interval, const std::vector<int>& P_onset,
-                             const std::vector<int>& R_peaks, std::vector<int>& classAssignments);
+                             const std::vector<int>& R_peaks);
 
 // Implementacja funkcji pole
 double pole(const std::vector<double>& signal, int QRS_onset, int QRS_offset) {
@@ -32,7 +32,7 @@ double dlugosc(const std::vector<double>& signal, int QRS_onset, int QRS_offset)
 // Implementacja funkcji classifyEKG
 std::vector<int> classifyEKG(const std::vector<double>& signal, const std::vector<int>& QRS_onset, const std::vector<int>& QRS_offset,
                              const std::vector<double>& P_wave, const std::vector<double>& RR_interval, const std::vector<int>& P_onset,
-                             const std::vector<int>& R_peaks, std::vector<int>& classAssignments) {
+                             const std::vector<int>& R_peaks) {
     int numQrs = QRS_onset.size();
     std::vector<int> classifications(numQrs, 0);
     std::vector<int> classCounts(5, 0); // Licznik dla każdej klasy (5 klas)
@@ -61,9 +61,6 @@ std::vector<int> classifyEKG(const std::vector<double>& signal, const std::vecto
 
         // Zliczanie wystąpień danej klasy
         classCounts[classifications[i] - 1]++;
-
-        // Przypisanie klasy dla danego zespołu QRS
-        classAssignments[i] = classifications[i];
     }
 
     // Wypisanie informacji o liczbie wystąpień dla każdej klasy
@@ -76,35 +73,6 @@ std::vector<int> classifyEKG(const std::vector<double>& signal, const std::vecto
     return classifications;
 }
 
-// Funkcja main do testowania
-int main() {
-    // Przykładowe dane wejściowe
-    std::vector<double> signal = { /* ... */ };  // Wprowadź swoje dane
-    std::vector<int> QRS_onset = { /* ... */ };  // Wprowadź swoje dane
-    std::vector<int> QRS_offset = { /* ... */ };  // Wprowadź swoje dane
-    std::vector<double> P_wave = { /* ... */ };  // Wprowadź swoje dane
-    std::vector<double> RR_interval = { /* ... */ };  // Wprowadź swoje dane
-    std::vector<int> P_onset = { /* ... */ };  // Wprowadź swoje dane
-    std::vector<int> R_peaks = { /* ... */ };  // Wprowadź swoje dane
+// Dodatkowe funkcje pomocnicze
 
-    // Wektor do przechowywania przypisanych klas dla każdego zespołu QRS
-    std::vector<int> classAssignments(QRS_onset.size(), 0);
-
-    // Wywołanie funkcji classifyEKG
-    std::vector<int> classifications = classifyEKG(signal, QRS_onset, QRS_offset, P_wave, RR_interval, P_onset, R_peaks, classAssignments);
-
-    // Wypisanie wektora z przypisaną klasą dla każdego zespołu QRS
-    std::cout << "Nr. Zespołu qrs\t";
-    for (int i = 0; i < QRS_onset.size(); ++i) {
-        std::cout << i + 1 << "\t";
-    }
-    std::cout << std::endl;
-
-    std::cout << "Klasa\t\t\t";
-    for (int i = 0; i < QRS_onset.size(); ++i) {
-        std::cout << classAssignments[i] << "\t";
-    }
-    std::cout << std::endl;
-
-    return 0;
-}
+// Funkcja calculatePRInterval nie została przepisana, ponieważ nie jest używana w głównej funkcji.
