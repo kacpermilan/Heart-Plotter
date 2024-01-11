@@ -46,6 +46,8 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
     dataTable->setColumnCount(2); // Two columns: one for X data, one for Y data
     dataTable->setRowCount(xData.size()); // Number of rows is equal to the size of xData
 
+    QTextEdit* textEdit = new QTextEdit(this);
+
     // Set headers for the table
     QStringList headers;
     headers << "X Data" << "Y Data";
@@ -93,10 +95,11 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
     // Add the QCustomPlot and QTableWidget to the main layout
     mainLayout->addWidget(customPlot);
     mainLayout->addWidget(dataTable);
-
+    mainLayout->addWidget(textEdit);
     // Set stretch factors to control how the available space is distributed
     mainLayout->setStretchFactor(customPlot, 2);  // Adjust the stretch factors as needed
     mainLayout->setStretchFactor(dataTable, 1);
+    mainLayout->setStretchFactor(textEdit, 1);
 
     // Set the main layout for the central widget
     QWidget* centralWidget = new QWidget(this);
