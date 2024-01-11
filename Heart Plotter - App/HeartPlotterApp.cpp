@@ -115,7 +115,7 @@ HeartPlotterApp::~HeartPlotterApp() = default;
 void HeartPlotterApp::on_actionSave_Document_triggered()
 {
     pnt = &ui;
-    QString fileName = QFileDialog::getSaveFileName(this, "Save document...", qApp->applicationDirPath(), "*.pdf");
+    QString fileName = QFileDialog::getSaveFileName(this, "Zapisywanie", qApp->applicationDirPath(), "*.pdf");
     if (!fileName.isEmpty())
     {
         QPrinter printer;
