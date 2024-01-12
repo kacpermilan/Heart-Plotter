@@ -75,13 +75,14 @@ arma::vec HRVDFA::calculateWindows(const arma::vec& rr_intervals, int minWindow,
         scales = arma::linspace(minWindow, 64, (64 - minWindow) / 4 + 1);
         arma::vec additionalScales = arma::linspace(64, maxWindow, (maxWindow - 64) / 8 + 1);
         scales = arma::join_cols(scales, additionalScales);
-
+       
     }
     else
     {
         scales = arma::linspace(minWindow, maxWindow, (maxWindow - minWindow) / 4 + 1);
 
     }
+
     return scales;
 }
 
@@ -146,7 +147,7 @@ double HRVDFA::calculate_rms(const arma::vec& integrated, double scale)
 arma::vec HRVDFA::alpha(const arma::vec& scales, const std::vector<double>& flucts)
 {
     // Konwersja std::vector<double> na arma::vec
-    arma::vec armaFlucts = arma::conv_to<arma::vec>::from(flucts);
+    arma::vec armaFlucts(flucts);
 
     // Wyznaczenie współczynników alpha
     return arma::polyfit(arma::log2(scales), arma::log2(armaFlucts), 1);
@@ -158,4 +159,16 @@ double HRVDFA::getShortTermAlpha() const {
 
 double HRVDFA::getLongTermAlpha() const {
     return lt_alpha;
+}
+
+arma::vec HRVDFA::applyPolyval(const arma::vec& scales, const arma::vec& fluctuations)
+{
+    // Dopasowanie prostych
+    arma::vec log_scales = arma::log2(scales);
+    arma::vec alpha_line = arma::polyval(alpha(scales, arma::conv_to <std::vector<double>>::from(fluctuations)),log_scales);
+    arma::vec baseVector(alpha_line.n_elem, arma::fill::ones);
+    baseVector *= 2.0;
+    arma::vec result = arma::pow(baseVector, alpha_line);
+   
+    return result;
 }
