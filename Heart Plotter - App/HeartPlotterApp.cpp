@@ -62,6 +62,7 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
         dataTable->setItem(i, 1, itemY);
     }
 
+    /*
     // Take a screenshot of the QCustomPlot widget
     QPixmap pixmap = customPlot->toPixmap();
 
@@ -84,6 +85,7 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
     }
 
     QMessageBox::information(this, "RGB Values", rgbValues);
+    */
 
     // Rescale axes and replot
     customPlot->rescaleAxes();
