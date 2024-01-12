@@ -14,6 +14,7 @@ public:
     arma::vec lt_fluctuations;
     arma::vec scales_st;
     arma::vec scales_lt;
+    arma::vec applyPolyval(const arma::vec& scales, const arma::vec& fluctuations);
 
 private:
     arma::vec prepare_data(std::vector<DataPoint> signal, std::vector<double> r_peaks, int minWindow, int maxWindow);
