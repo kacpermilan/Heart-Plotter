@@ -46,7 +46,7 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
     dataTable->setColumnCount(2); // Two columns: one for X data, one for Y data
     dataTable->setRowCount(xData.size()); // Number of rows is equal to the size of xData
 
-    QTextEdit* textEdit = new QTextEdit(this);
+    // QTextEdit* textEdit = new QTextEdit(this);
 
     // Set headers for the table
     QStringList headers;
@@ -92,21 +92,23 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
     customPlot->replot();
 
     // Create a main layout
-    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    QWidget *plot_container =  ui.plotContainer;
+    QVBoxLayout *plot_layout = new QVBoxLayout(plot_container);
 
     // Add the QCustomPlot and QTableWidget to the main layout
-    mainLayout->addWidget(customPlot);
-    mainLayout->addWidget(dataTable);
-    mainLayout->addWidget(textEdit);
+    plot_layout->addWidget(customPlot);
+    plot_layout->addWidget(dataTable);
+    //plot_layout->addWidget(textEdit);
+
     // Set stretch factors to control how the available space is distributed
-    mainLayout->setStretchFactor(customPlot, 2);  // Adjust the stretch factors as needed
-    mainLayout->setStretchFactor(dataTable, 1);
-    mainLayout->setStretchFactor(textEdit, 1);
+    plot_layout->setStretchFactor(customPlot, 2);  // Adjust the stretch factors as needed
+    plot_layout->setStretchFactor(dataTable, 1);
+    //plot_layout->setStretchFactor(textEdit, 1);
 
     // Set the main layout for the central widget
-    QWidget* centralWidget = new QWidget(this);
-    centralWidget->setLayout(mainLayout);
-    setCentralWidget(centralWidget);
+    //QWidget* centralWidget = new QWidget(this);
+    //centralWidget->setLayout(plot_layout);
+    //setCentralWidget(centralWidget);
 
     QCPDocumentObject* plotObjectHandler = new QCPDocumentObject(this);
     pnt = &ui;

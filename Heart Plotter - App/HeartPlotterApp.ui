@@ -18,18 +18,18 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>110</y>
+      <y>10</y>
       <width>921</width>
-      <height>381</height>
+      <height>511</height>
      </rect>
     </property>
    </widget>
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>361</width>
+      <x>10</x>
+      <y>530</y>
+      <width>921</width>
       <height>71</height>
      </rect>
     </property>
