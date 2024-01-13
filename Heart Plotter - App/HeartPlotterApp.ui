@@ -23,6 +23,16 @@
       <height>511</height>
      </rect>
     </property>
+    <widget class="QCustomPlot" name="plot" native="true">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>50</y>
+       <width>120</width>
+       <height>80</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
@@ -53,6 +63,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionSave_Document"/>
+   <addaction name="actionInsert_Plot"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionSave_Document">
@@ -63,8 +74,24 @@
     <enum>QAction::TextHeuristicRole</enum>
    </property>
   </action>
+  <action name="actionInsert_Plot">
+   <property name="text">
+    <string>Dodaj wykres do PDFa</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="HeartPlotterApp.qrc"/>
  </resources>

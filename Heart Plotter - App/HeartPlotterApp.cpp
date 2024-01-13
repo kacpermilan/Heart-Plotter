@@ -1,6 +1,8 @@
 #include "HeartPlotterApp.h"
 #include "qcustomplot/qcustomplot.h"
 
+//QCustomPlot* customPlot;
+
 HeartPlotterApp::HeartPlotterApp(QWidget* parent)
     : QMainWindow(parent)
 {
@@ -113,10 +115,25 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
     QCPDocumentObject* plotObjectHandler = new QCPDocumentObject(this);
     pnt = &ui;
     pnt->textEdit->document()->documentLayout()->registerHandler(QCPDocumentObject::PlotTextFormat, plotObjectHandler);
-
+    pnt->plot = customPlot;
 }
 
 HeartPlotterApp::~HeartPlotterApp() = default;
+
+void HeartPlotterApp::on_actionInsert_Plot_triggered()
+{
+    pnt = &ui;
+    QTextCursor cursor = pnt->textEdit->textCursor();
+
+    // insert the current plot at the cursor position. QCPDocumentObject::generatePlotFormat creates a
+    // vectorized snapshot of the passed plot (with the specified width and height) which gets inserted
+    // into the text document.
+    double width = 720;
+    double height = 360;
+    cursor.insertText(QString(QChar::ObjectReplacementCharacter), QCPDocumentObject::generatePlotFormat(pnt->plot, width, height));
+
+    pnt->textEdit->setTextCursor(cursor);
+}
 
 
 void HeartPlotterApp::on_actionSave_Document_triggered()

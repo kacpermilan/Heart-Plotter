@@ -26,6 +26,7 @@ public:
 private slots:
     
     void on_actionSave_Document_triggered();
+    void on_actionInsert_Plot_triggered();
 
 private:
     Ui::HeartPlotterAppClass ui;
