@@ -16,6 +16,11 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
     customPlot->xAxis->setLabel("X Axis");
     customPlot->yAxis->setLabel("Y Axis");
 
+    // Set plot title
+    customPlot->plotLayout()->insertRow(0); // Insert a new row for the title
+    QCPTextElement* title = new QCPTextElement(customPlot, "Plot title", QFont("sans", 12, QFont::Bold));
+    customPlot->plotLayout()->addElement(0, 0, title);
+
     // Legend
     customPlot->legend->setVisible(true);
     QFont legendFont = font();
@@ -24,7 +29,7 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
     customPlot->legend->setBrush(QBrush(QColor(255, 255, 255, 230)));
 
     // Create a graph 0 and set data
-    QVector<double> xData, yData; // Add your data here
+    QVector<double> xData, yData; 
     xData << 1 << 2 << 3;
     yData << 1 << 4 << 9;
 
@@ -81,7 +86,7 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
             .arg(color.blue());
     }
 
-    QMessageBox::information(this, "RGB Values", rgbValues);
+   // QMessageBox::information(this, "RGB Values", rgbValues);
 
     // Rescale axes and replot
     customPlot->rescaleAxes();
