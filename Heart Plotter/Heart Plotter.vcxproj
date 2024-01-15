@@ -148,6 +148,7 @@
     <ClInclude Include="src\HRV1\iHRV1.h" />
     <ClInclude Include="src\HRV2\HRV2.h" />
     <ClInclude Include="src\HRV2\iHRV2.h" />
+    <ClInclude Include="src\HRV_DFA\HRVDFA.h" />
     <ClInclude Include="src\HRV_DFA\iHRVDFA.h" />
     <ClInclude Include="src\Input\iInput.h" />
     <ClInclude Include="src\Output\iOutput.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="src\ECG_Service\temp_main.cpp" />
     <ClCompile Include="src\HRV1\HRV1.cpp" />
     <ClCompile Include="src\HRV2\HRV2.cpp" />
+    <ClCompile Include="src\HRV_DFA\HRVDFA.cpp" />
     <ClCompile Include="src\R_Peaks\RPeaks.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
