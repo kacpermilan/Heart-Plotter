@@ -16,6 +16,9 @@
     <Filter Include="Documentation Files">
       <UniqueIdentifier>{c1509d4a-343f-44ff-9ec1-63083afccfe5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Interfaces">
+      <UniqueIdentifier>{0a5e5706-89f9-41e7-82ec-846c1bef73f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="doc\class_diagram.drawio">
@@ -31,41 +34,72 @@
     <ClInclude Include="src\Common_Types\CommonTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECG_Baseline\iECGBaseline.h">
+    <ClInclude Include="src\ECG_Baseline\ECGBaseline.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECG_Baseline\iECGBaseline.h">
+      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="src\ECG_Service\iECGService.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="src\Heart_Class\iHeartClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\HRV_DFA\iHRVDFA.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="src\HRV1\iHRV1.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="src\HRV2\iHRV2.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HRV_DFA\iHRVDFA.h">
+      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="src\Input\iInput.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="src\Output\iOutput.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="src\R_Peaks\iRPeaks.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="src\ST_Segment\iSTSegment.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="src\T_Wave_Alt\iTWaveAlt.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="src\Waves\iWaves.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\R_Peaks\Rpeaks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\HRV1\HRV1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HRV2\HRV2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\R_Peaks\RPeaks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HRV1\HRV1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HRV2\HRV2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ECG_Service\temp_main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECG_Baseline\ECGBaseline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

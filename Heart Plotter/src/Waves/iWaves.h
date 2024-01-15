@@ -3,6 +3,8 @@ File - iWaves.h
 Desc - definition of interface for Waves module
 */
 
+#pragma once
+
 #include "../Common_Types/CommonTypes.h"
 
 #include <vector>

@@ -4,6 +4,8 @@ Desc - definition of interface for HeartClass module,
 	   which classifies QRS complexes
 */
 
+#pragma once
+
 #include "../Common_Types/CommonTypes.h"
 #include "../Waves/iWaves.h"
 
