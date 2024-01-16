@@ -14,7 +14,7 @@
    <string>HeartPlotterApp</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="plotContainer" native="true">
+   <widget class="QCustomPlot" name="plotContainer" native="true">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -23,16 +23,6 @@
       <height>511</height>
      </rect>
     </property>
-    <widget class="QCustomPlot" name="plot" native="true">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>50</y>
-       <width>120</width>
-       <height>80</height>
-      </rect>
-     </property>
-    </widget>
    </widget>
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
@@ -88,7 +78,7 @@
   <customwidget>
    <class>QCustomPlot</class>
    <extends>QWidget</extends>
-   <header>qcustomplot.h</header>
+   <header>qcustomplot/qcustomplot.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

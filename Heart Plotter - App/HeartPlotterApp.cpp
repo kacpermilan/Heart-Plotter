@@ -115,7 +115,7 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
     QCPDocumentObject* plotObjectHandler = new QCPDocumentObject(this);
     pnt = &ui;
     pnt->textEdit->document()->documentLayout()->registerHandler(QCPDocumentObject::PlotTextFormat, plotObjectHandler);
-    pnt->plot = customPlot;
+    pnt->plotContainer = customPlot;
 }
 
 HeartPlotterApp::~HeartPlotterApp() = default;
@@ -130,7 +130,7 @@ void HeartPlotterApp::on_actionInsert_Plot_triggered()
     // into the text document.
     double width = 720;
     double height = 360;
-    cursor.insertText(QString(QChar::ObjectReplacementCharacter), QCPDocumentObject::generatePlotFormat(pnt->plot, width, height));
+    cursor.insertText(QString(QChar::ObjectReplacementCharacter), QCPDocumentObject::generatePlotFormat(pnt->plotContainer, width, height));
 
     pnt->textEdit->setTextCursor(cursor);
 }
