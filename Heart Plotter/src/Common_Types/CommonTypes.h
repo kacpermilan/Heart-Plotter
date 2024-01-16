@@ -1,7 +1,10 @@
+#pragma once
 /*
 File - CommonTypes.h
 Desc - Definitions for common datatypes and enums used in project
 */
+
+#pragma once
 
 /// DataPoint - basic struct for holding singular record, most signals will be in std::vector<DataPoint>
 struct DataPoint 

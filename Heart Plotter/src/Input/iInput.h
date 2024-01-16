@@ -3,6 +3,8 @@ File - iInput.h
 Desc - definition of interface for Input class
 */
 
+#pragma once
+
 #include "../Common_Types/CommonTypes.h"
 #include <string>
 #include <vector>
