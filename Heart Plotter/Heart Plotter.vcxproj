@@ -142,6 +142,7 @@
     <ClInclude Include="src\Common_Types\CommonTypes.h" />
     <ClInclude Include="src\ECG_Baseline\ECGBaseline.h" />
     <ClInclude Include="src\ECG_Baseline\iECGBaseline.h" />
+    <ClInclude Include="src\ECG_Service\ECGService.h" />
     <ClInclude Include="src\ECG_Service\iECGService.h" />
     <ClInclude Include="src\Heart_Class\iHeartClass.h" />
     <ClInclude Include="src\HRV1\HRV1.h" />
@@ -160,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ECG_Baseline\ECGBaseline.cpp" />
+    <ClCompile Include="src\ECG_Service\ECGService.cpp" />
     <ClCompile Include="src\ECG_Service\temp_main.cpp" />
     <ClCompile Include="src\HRV1\HRV1.cpp" />
     <ClCompile Include="src\HRV2\HRV2.cpp" />

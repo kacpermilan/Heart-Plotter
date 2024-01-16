@@ -1,4 +1,5 @@
 #include "../Common_Types/CommonTypes.h"
+#include "ECGService.h"
 
 #include <memory>
 #include <iostream>
@@ -13,6 +14,8 @@
 
 // create your object here, if it requires other objects, create them
 // EXAMPLE: const std::unique_ptr<iECGBaseline> ecgBaseline = std::make_unique<ECGBaseline>(*constructor params*)
+
+//#define HILBERT_TRANSFORM
 
 std::vector<DataPoint> load_mock_signal(const char* signalpath = "../../Heart Plotter/mock/100_MLII.dat")
 {
@@ -36,16 +39,19 @@ std::vector<DataPoint> load_mock_signal(const char* signalpath = "../../Heart Pl
 }
 
 
-
 int main()
 {
 	// write any tests here
 
-	std::vector<DataPoint> mockSignal = load_mock_signal();
+	temp_mock_signal::mockSignal = load_mock_signal();
 # ifdef PRINT_SIGNAL
-	for (auto elem : mockSignal) {
+	for (auto elem : temp_mock_signal::mockSignal) {
 		std::cout << elem.y << "\n";
 	}
 # endif
+	ECGService service = ECGService();
+	service.perform_ecg_analysis();
+
+
 	std::getchar();
 }
