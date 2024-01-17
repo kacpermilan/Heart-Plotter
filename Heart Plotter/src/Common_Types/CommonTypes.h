@@ -21,9 +21,9 @@ struct DataPoint
 /// OperationStatus - enum holding return status for input/output operations
 enum OperationStatus
 {
-	ERROR = 0,
-	SUCCESS = 1,
-	TEST_RETURN = 2
+	error = 0,
+	success = 1,
+	test_return = 2
 };
 
 /// Parameters - class containing all main application parameters

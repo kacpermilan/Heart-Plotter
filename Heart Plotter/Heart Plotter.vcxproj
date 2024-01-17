@@ -40,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -157,8 +157,6 @@
     <ClInclude Include="src\HRV2\iHRV2.h" />
     <ClInclude Include="src\HRV_DFA\HRVDFA.h" />
     <ClInclude Include="src\HRV_DFA\iHRVDFA.h" />
-    <ClInclude Include="src\Input\iInput.h" />
-    <ClInclude Include="src\Output\iOutput.h" />
     <ClInclude Include="src\R_Peaks\iRPeaks.h" />
     <ClInclude Include="src\R_Peaks\Rpeaks.h" />
     <ClInclude Include="src\ST_Segment\iSTSegment.h" />

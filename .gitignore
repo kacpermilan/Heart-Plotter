@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+##############################
+# Custom additions
+##############################
+/Heart Plotter - App/qcustomplot/documentation
+/Heart Plotter - App/qcustomplot/examples
