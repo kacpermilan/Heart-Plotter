@@ -14,13 +14,23 @@
    <string>HeartPlotterApp</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="plotContainer" native="true">
+   <widget class="QCustomPlot" name="plotContainer" native="true">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>110</y>
+      <y>10</y>
       <width>921</width>
-      <height>381</height>
+      <height>511</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>530</y>
+      <width>921</width>
+      <height>71</height>
      </rect>
     </property>
    </widget>
@@ -42,10 +52,36 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionSave_Document"/>
+   <addaction name="actionInsert_Plot"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionSave_Document">
+   <property name="text">
+    <string>Zapisywanie</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::TextHeuristicRole</enum>
+   </property>
+  </action>
+  <action name="actionInsert_Plot">
+   <property name="text">
+    <string>Dodaj wykres do PDFa</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot/qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="HeartPlotterApp.qrc"/>
  </resources>

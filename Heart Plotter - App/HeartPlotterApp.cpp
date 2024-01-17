@@ -1,10 +1,20 @@
 #include "HeartPlotterApp.h"
 #include "qcustomplot/qcustomplot.h"
+#include "Input.h"
+
+//QCustomPlot* customPlot;
 
 HeartPlotterApp::HeartPlotterApp(QWidget* parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+
+    const auto input = new Input();
+    std::vector<DataPoint> loaded_signal;
+    if (input->check_availability("100s"))
+    {
+         loaded_signal = input->get_preprocessed_data("100s");
+    }
 
     // Create a QCustomPlot widget
     QCustomPlot* customPlot = new QCustomPlot(this);
@@ -51,6 +61,8 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
     dataTable->setColumnCount(2); // Two columns: one for X data, one for Y data
     dataTable->setRowCount(xData.size()); // Number of rows is equal to the size of xData
 
+    // QTextEdit* textEdit = new QTextEdit(this);
+
     // Set headers for the table
     QStringList headers;
     headers << "X Data" << "Y Data";
@@ -65,6 +77,7 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
         dataTable->setItem(i, 1, itemY);
     }
 
+    /*
     // Take a screenshot of the QCustomPlot widget
     QPixmap pixmap = customPlot->toPixmap();
 
@@ -86,27 +99,93 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
             .arg(color.blue());
     }
 
-   // QMessageBox::information(this, "RGB Values", rgbValues);
+    QMessageBox::information(this, "RGB Values", rgbValues);
+    */
 
     // Rescale axes and replot
     customPlot->rescaleAxes();
     customPlot->replot();
 
     // Create a main layout
-    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    QWidget *plot_container =  ui.plotContainer;
+    QVBoxLayout *plot_layout = new QVBoxLayout(plot_container);
 
     // Add the QCustomPlot and QTableWidget to the main layout
-    mainLayout->addWidget(customPlot);
-    mainLayout->addWidget(dataTable);
+    plot_layout->addWidget(customPlot);
+    plot_layout->addWidget(dataTable);
+    //plot_layout->addWidget(textEdit);
 
     // Set stretch factors to control how the available space is distributed
-    mainLayout->setStretchFactor(customPlot, 2);  // Adjust the stretch factors as needed
-    mainLayout->setStretchFactor(dataTable, 1);
+    plot_layout->setStretchFactor(customPlot, 2);  // Adjust the stretch factors as needed
+    plot_layout->setStretchFactor(dataTable, 1);
+    //plot_layout->setStretchFactor(textEdit, 1);
 
     // Set the main layout for the central widget
-    QWidget* centralWidget = new QWidget(this);
-    centralWidget->setLayout(mainLayout);
-    setCentralWidget(centralWidget);
+    //QWidget* centralWidget = new QWidget(this);
+    //centralWidget->setLayout(plot_layout);
+    //setCentralWidget(centralWidget);
+
+    QCPDocumentObject* plotObjectHandler = new QCPDocumentObject(this);
+    pnt = &ui;
+    pnt->textEdit->document()->documentLayout()->registerHandler(QCPDocumentObject::PlotTextFormat, plotObjectHandler);
+    pnt->plotContainer = customPlot;
 }
 
 HeartPlotterApp::~HeartPlotterApp() = default;
+
+void HeartPlotterApp::on_actionInsert_Plot_triggered()
+{
+    pnt = &ui;
+    QTextCursor cursor = pnt->textEdit->textCursor();
+
+    // insert the current plot at the cursor position. QCPDocumentObject::generatePlotFormat creates a
+    // vectorized snapshot of the passed plot (with the specified width and height) which gets inserted
+    // into the text document.
+    double width = 720;
+    double height = 360;
+    cursor.insertText(QString(QChar::ObjectReplacementCharacter), QCPDocumentObject::generatePlotFormat(pnt->plotContainer, width, height));
+
+    pnt->textEdit->setTextCursor(cursor);
+}
+
+
+void HeartPlotterApp::on_actionSave_Document_triggered()
+{
+    pnt = &ui;
+    QString fileName = QFileDialog::getSaveFileName(this, "Zapisywanie", qApp->applicationDirPath(), "*.pdf");
+    if (!fileName.isEmpty())
+    {
+        QPrinter printer;
+        printer.setOutputFormat(QPrinter::PdfFormat);
+        printer.setOutputFileName(fileName);
+        QMargins pageMargins(20, 20, 20, 20);
+#if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
+        printer.setFullPage(false);
+        printer.setPaperSize(QPrinter::A4);
+        printer.setOrientation(QPrinter::Portrait);
+        printer.setPageMargins(pageMargins.left(), pageMargins.top(), pageMargins.right(), pageMargins.bottom(), QPrinter::Millimeter);
+#else
+        QPageLayout pageLayout;
+        pageLayout.setMode(QPageLayout::StandardMode);
+        pageLayout.setOrientation(QPageLayout::Portrait);
+        pageLayout.setPageSize(QPageSize(QPageSize::A4));
+        pageLayout.setUnits(QPageLayout::Millimeter);
+        pageLayout.setMargins(QMarginsF(pageMargins));
+        printer.setPageLayout(pageLayout);
+#endif
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+        pnt->textEdit->document()->setPageSize(printer.pageRect().size());
+#else
+        auto sizem = printer.resolution();
+        auto pixelsm = printer.pageLayout().paintRectPixels(sizem).size();
+        auto textem = pnt->textEdit;
+        auto documenta = textem -> document();
+        documenta->setPageSize(pixelsm);
+#endif
+        auto q = pnt->textEdit;
+        auto w = q->document();
+        w->print(&printer);
+    }
+}
+

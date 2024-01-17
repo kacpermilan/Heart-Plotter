@@ -3,6 +3,7 @@ File - iECGService
 Desc - definition of interface for ECGService module, the main driver for ECG analysis
 */
 
+#pragma once
 
 #include "../Common_Types/CommonTypes.h"
 #include "../ECG_Baseline/iECGBaseline.h"
@@ -14,8 +15,6 @@ Desc - definition of interface for ECGService module, the main driver for ECG an
 #include "../ST_Segment/iSTSegment.h"
 #include "../T_Wave_Alt/iTWaveAlt.h"
 #include "../Waves/iWaves.h"
-#include "../Input/iInput.h"
-#include "../Output/iOutput.h"
 
 #include <vector>
 #include <memory>
