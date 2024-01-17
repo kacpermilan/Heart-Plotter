@@ -20,7 +20,9 @@ OperationStatus ECGService::perform_ecg_analysis()
 	auto filterType = iECGBaseline::FilterType::BUTTERWORTH_FILTER;
 	auto filterParameters = iECGBaseline::FilterParameters();
 	filterParameters.windowSize = 20;
-	filterParameters.cutoff = 100;
+	filterParameters.cutoff = 50;
+	filterParameters.order = 3;
+	filterParameters.samplingRate = 360;
 
 	auto ret = ecgbaseline->set_filter_type(filterType);
 	if (ret == OperationStatus::ERROR)

@@ -85,6 +85,9 @@
     <ClInclude Include="src\HRV_DFA\HRVDFA.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ECG_Service\ECGService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\R_Peaks\RPeaks.cpp">
@@ -97,6 +100,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\HRV_DFA\HRVDFA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECG_Service\ECGService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
