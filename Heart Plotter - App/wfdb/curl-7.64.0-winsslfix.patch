@@ -1,0 +1,77 @@
+From 927a5bd1b4f95fe2331c9d9923c620ba8e274d6c Mon Sep 17 00:00:00 2001
+From: Chris Araman <chris.araman@fuze.com>
+Date: Tue, 5 Feb 2019 21:56:36 -0800
+Subject: [PATCH] url: close TLS before removing conn from cache
+
+- Fix potential crashes in schannel shutdown.
+
+Ensure any TLS shutdown messages are sent before removing the
+association between the connection and the easy handle. Reverts
+@bagder's previous partial fix for #3412.
+
+Fixes https://github.com/curl/curl/issues/3412
+Fixes https://github.com/curl/curl/issues/3505
+Closes https://github.com/curl/curl/pull/3531
+---
+ lib/url.c           | 9 ++++-----
+ lib/vtls/schannel.c | 8 ++++----
+ 2 files changed, 8 insertions(+), 9 deletions(-)
+
+diff --git a/lib/url.c b/lib/url.c
+index d5a982008..73f7f861b 100644
+--- a/lib/url.c
++++ b/lib/url.c
+@@ -788,8 +788,11 @@ CURLcode Curl_disconnect(struct Curl_easy *data,
+     /* This is set if protocol-specific cleanups should be made */
+     conn->handler->disconnect(conn, dead_connection);
+ 
+-    /* unlink ourselves! */
+   infof(data, "Closing connection %ld\n", conn->connection_id);
++  Curl_ssl_close(conn, FIRSTSOCKET);
++  Curl_ssl_close(conn, SECONDARYSOCKET);
++
++  /* unlink ourselves! */
+   Curl_conncache_remove_conn(data, conn, TRUE);
+ 
+   free_idnconverted_hostname(&conn->host);
+@@ -797,10 +800,6 @@ CURLcode Curl_disconnect(struct Curl_easy *data,
+   free_idnconverted_hostname(&conn->http_proxy.host);
+   free_idnconverted_hostname(&conn->socks_proxy.host);
+ 
+-  /* this assumes that the pointer is still there after the connection was
+-     detected from the cache */
+-  Curl_ssl_close(conn, FIRSTSOCKET);
+-
+   conn_free(conn);
+   return CURLE_OK;
+ }
+diff --git a/lib/vtls/schannel.c b/lib/vtls/schannel.c
+index c8574f56c..7e5d19b20 100644
+--- a/lib/vtls/schannel.c
++++ b/lib/vtls/schannel.c
+@@ -1960,6 +1960,8 @@ static int Curl_schannel_shutdown(struct connectdata *conn, int sockindex)
+   char * const hostname = SSL_IS_PROXY() ? conn->http_proxy.host.name :
+     conn->host.name;
+ 
++  DEBUGASSERT(data);
++
+   infof(data, "schannel: shutting down SSL/TLS connection with %s port %hu\n",
+         hostname, conn->remote_port);
+ 
+@@ -2035,11 +2037,9 @@ static int Curl_schannel_shutdown(struct connectdata *conn, int sockindex)
+      * might not have an associated transfer so the check for conn->data is
+      * necessary.
+      */
+-    if(conn->data)
+-      Curl_ssl_sessionid_lock(conn);
++    Curl_ssl_sessionid_lock(conn);
+     Curl_schannel_session_free(BACKEND->cred);
+-    if(conn->data)
+-      Curl_ssl_sessionid_unlock(conn);
++    Curl_ssl_sessionid_unlock(conn);
+     BACKEND->cred = NULL;
+   }
+ 
+-- 
+2.11.0
+
