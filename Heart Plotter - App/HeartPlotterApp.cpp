@@ -2,33 +2,59 @@
 #include "qcustomplot/qcustomplot.h"
 #include "Input.h"
 
-//QCustomPlot* customPlot;
-
 HeartPlotterApp::HeartPlotterApp(QWidget* parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
 
-    const auto input = new Input();
-    std::vector<DataPoint> loaded_signal;
-    if (input->check_availability("100s"))
-    {
-         loaded_signal = input->get_preprocessed_data("100s");
+    QStringList signalList = QStringList() << "100" << "100s" << "101" << "102" << "103" << "104" << "105" << "106" << "107" << "108" << "109" << "111" << "112" << "113" << "114" << "115" << "116" << "117" << "118" << "119" << "121" << "122" << "123" << "124" << "200" << "201" << "202" << "203" << "205" << "207" << "208" << "209" << "210" << "212" << "213" << "214" << "215" << "217" << "219" << "220" << "221" << "222" << "223" << "228" << "230" << "231" << "232" << "233" << "234";
+
+    QComboBox* comboBox = ui.signalsBox;
+    
+    for (const QString &file : signalList) {
+        comboBox->addItem(file);
     }
 
-    // Create a QCustomPlot widget
-    QCustomPlot* customPlot = new QCustomPlot(this);
+    ui.plot->plotLayout()->insertRow(0);
+    connect(ui.signalsBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onSignalsBoxSelectionChanged(int)));
+    ui.signalsBox->setCurrentIndex(1);
+}
+
+HeartPlotterApp::~HeartPlotterApp() = default;
+
+void HeartPlotterApp::onSignalsBoxSelectionChanged(int index)
+{
+    qDebug() << "Selected item index: " << index;
+    std::string selectedText = ui.signalsBox->itemText(index).toStdString();
+
+    refresh_plot_data(selectedText);
+}
+
+void HeartPlotterApp::refresh_plot_data(std::string signal_name)
+{
+    const std::string x_axis = "Time";
+    const std::string y_axis = "Amplitude";
+
+    const auto input = new Input();
+    std::vector<DataPoint> loaded_signal;
+    if (input->check_availability(signal_name))
+    {
+         loaded_signal = input->get_preprocessed_data(signal_name);
+    }
+
+    // Get a QCustomPlot widget
+    QCustomPlot* customPlot = ui.plot;
+    customPlot->clearGraphs();
 
     // Enable scroll bars for the plot's viewport
     customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
 
     // Labels
-    customPlot->xAxis->setLabel("X Axis");
-    customPlot->yAxis->setLabel("Y Axis");
+    customPlot->xAxis->setLabel(x_axis.data());
+    customPlot->yAxis->setLabel(y_axis.data());
 
     // Set plot title
-    customPlot->plotLayout()->insertRow(0); // Insert a new row for the title
-    QCPTextElement* title = new QCPTextElement(customPlot, "Plot title", QFont("sans", 12, QFont::Bold));
+    QCPTextElement* title = new QCPTextElement(customPlot, "ECG plot of a signal", QFont("sans", 12, QFont::Bold));
     customPlot->plotLayout()->addElement(0, 0, title);
 
     // Legend
@@ -40,32 +66,27 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
 
     // Create a graph 0 and set data
     QVector<double> xData, yData; 
-    xData << 1 << 2 << 3;
-    yData << 1 << 4 << 9;
+    for (const auto& point : loaded_signal)
+    {
+        xData.push_back(point.x);
+        yData.push_back(point.y);
+    }
 
     customPlot->addGraph();
     customPlot->graph(0)->setPen(QPen(Qt::blue));
     customPlot->graph(0)->setData(xData, yData);
-    customPlot->graph(0)->setName("Data");
+    customPlot->graph(0)->setName(signal_name.data());
 
-    // Create a graph 1 and set data
-    customPlot->addGraph();
-    customPlot->graph(1)->setPen(QPen(Qt::red));
-    customPlot->graph(1)->setLineStyle(QCPGraph::lsNone);
-    customPlot->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 7));
-    customPlot->graph(1)->setData(xData, yData);
-    customPlot->graph(1)->setName("Data markers");
+    // Get and populate the table widget
+    QTableWidget* dataTable = ui.table;
+    dataTable->clear();
 
-    // Create a table widget
-    QTableWidget* dataTable = new QTableWidget(this);
-    dataTable->setColumnCount(2); // Two columns: one for X data, one for Y data
-    dataTable->setRowCount(xData.size()); // Number of rows is equal to the size of xData
-
-    // QTextEdit* textEdit = new QTextEdit(this);
+    dataTable->setColumnCount(2);
+    dataTable->setRowCount(xData.size());
 
     // Set headers for the table
     QStringList headers;
-    headers << "X Data" << "Y Data";
+    headers << x_axis.data() << y_axis.data();
     dataTable->setHorizontalHeaderLabels(headers);
 
     // Populate the table with data
@@ -77,61 +98,15 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
         dataTable->setItem(i, 1, itemY);
     }
 
-    /*
-    // Take a screenshot of the QCustomPlot widget
-    QPixmap pixmap = customPlot->toPixmap();
-
-    // Extract colors and create an RGB table from the screenshot
-    std::vector<QColor> rgbTable;
-    for (int y = 0; y < pixmap.height(); ++y) {
-        for (int x = 0; x < pixmap.width(); ++x) {
-            QColor color = pixmap.toImage().pixelColor(x, y);
-            rgbTable.push_back(color);
-        }
-    }
-
-    // Show RGB values in a QMessageBox
-    QString rgbValues;
-    for (const QColor& color : rgbTable) {
-        rgbValues += QString("RGB values: %1, %2, %3\n")
-            .arg(color.red())
-            .arg(color.green())
-            .arg(color.blue());
-    }
-
-    QMessageBox::information(this, "RGB Values", rgbValues);
-    */
-
     // Rescale axes and replot
     customPlot->rescaleAxes();
     customPlot->replot();
 
-    // Create a main layout
-    QWidget *plot_container =  ui.plotContainer;
-    QVBoxLayout *plot_layout = new QVBoxLayout(plot_container);
-
-    // Add the QCustomPlot and QTableWidget to the main layout
-    plot_layout->addWidget(customPlot);
-    plot_layout->addWidget(dataTable);
-    //plot_layout->addWidget(textEdit);
-
-    // Set stretch factors to control how the available space is distributed
-    plot_layout->setStretchFactor(customPlot, 2);  // Adjust the stretch factors as needed
-    plot_layout->setStretchFactor(dataTable, 1);
-    //plot_layout->setStretchFactor(textEdit, 1);
-
-    // Set the main layout for the central widget
-    //QWidget* centralWidget = new QWidget(this);
-    //centralWidget->setLayout(plot_layout);
-    //setCentralWidget(centralWidget);
-
     QCPDocumentObject* plotObjectHandler = new QCPDocumentObject(this);
     pnt = &ui;
     pnt->textEdit->document()->documentLayout()->registerHandler(QCPDocumentObject::PlotTextFormat, plotObjectHandler);
-    pnt->plotContainer = customPlot;
+    pnt->plot = customPlot;
 }
-
-HeartPlotterApp::~HeartPlotterApp() = default;
 
 void HeartPlotterApp::on_actionInsert_Plot_triggered()
 {
@@ -143,7 +118,7 @@ void HeartPlotterApp::on_actionInsert_Plot_triggered()
     // into the text document.
     double width = 720;
     double height = 360;
-    cursor.insertText(QString(QChar::ObjectReplacementCharacter), QCPDocumentObject::generatePlotFormat(pnt->plotContainer, width, height));
+    cursor.insertText(QString(QChar::ObjectReplacementCharacter), QCPDocumentObject::generatePlotFormat(pnt->plot, width, height));
 
     pnt->textEdit->setTextCursor(cursor);
 }
@@ -152,7 +127,7 @@ void HeartPlotterApp::on_actionInsert_Plot_triggered()
 void HeartPlotterApp::on_actionSave_Document_triggered()
 {
     pnt = &ui;
-    QString fileName = QFileDialog::getSaveFileName(this, "Zapisywanie", qApp->applicationDirPath(), "*.pdf");
+    QString fileName = QFileDialog::getSaveFileName(this, "Saving...", qApp->applicationDirPath(), "*.pdf");
     if (!fileName.isEmpty())
     {
         QPrinter printer;

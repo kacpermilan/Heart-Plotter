@@ -6,41 +6,71 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>940</width>
-    <height>682</height>
+    <width>944</width>
+    <height>714</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>HeartPlotterApp</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QCustomPlot" name="plotContainer" native="true">
+   <widget class="QCustomPlot" name="plot" native="true">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
       <width>921</width>
-      <height>511</height>
+      <height>381</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="table">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>400</y>
+      <width>921</width>
+      <height>201</height>
      </rect>
     </property>
    </widget>
    <widget class="QTextEdit" name="textEdit">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>530</y>
-      <width>921</width>
-      <height>71</height>
+      <x>890</x>
+      <y>480</y>
+      <width>20</width>
+      <height>20</height>
      </rect>
     </property>
    </widget>
+   <widget class="QComboBox" name="signalsBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>610</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <zorder>textEdit</zorder>
+   <zorder>table</zorder>
+   <zorder>plot</zorder>
+   <zorder>signalsBox</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>940</width>
+     <width>944</width>
      <height>22</height>
     </rect>
    </property>
@@ -58,7 +88,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionSave_Document">
    <property name="text">
-    <string>Zapisywanie</string>
+    <string>Save to .pdf</string>
    </property>
    <property name="menuRole">
     <enum>QAction::TextHeuristicRole</enum>
@@ -66,7 +96,7 @@
   </action>
   <action name="actionInsert_Plot">
    <property name="text">
-    <string>Dodaj wykres do PDFa</string>
+    <string>Add plot to .pdf</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>

@@ -24,14 +24,13 @@ public:
     //void setupPlot();
 
 private slots:
-    
+    void refresh_plot_data(std::string signal_name);
     void on_actionSave_Document_triggered();
     void on_actionInsert_Plot_triggered();
+    void onSignalsBoxSelectionChanged(int index);
 
 private:
     Ui::HeartPlotterAppClass ui;
     Ui::HeartPlotterAppClass* pnt;
-    
-    
 };
 #endif // MAINWINDOW_H
