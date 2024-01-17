@@ -1,5 +1,6 @@
 #include "HeartPlotterApp.h"
 #include "qcustomplot/qcustomplot.h"
+#include "Input.h"
 
 //QCustomPlot* customPlot;
 
@@ -7,6 +8,13 @@ HeartPlotterApp::HeartPlotterApp(QWidget* parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+
+    const auto input = new Input();
+    std::vector<DataPoint> loaded_signal;
+    if (input->check_availability("100s"))
+    {
+         loaded_signal = input->get_preprocessed_data("100s");
+    }
 
     // Create a QCustomPlot widget
     QCustomPlot* customPlot = new QCustomPlot(this);

@@ -4,9 +4,8 @@
 #include <string>
 #include <vector>
 
-
 class Input {
 public:
-    OperationStatus load_data(std::string record);
+    bool check_availability(std::string record);
     std::vector<DataPoint> get_preprocessed_data(std::string filename);
 };

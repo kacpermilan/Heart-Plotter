@@ -5,12 +5,12 @@
 #include <wfdb.h>
 
 
-OperationStatus Input::load_data(std::string record){
+bool Input::check_availability(std::string record){
     WFDB_Sample v[2];
     WFDB_Siginfo s[2];
     
     // Ustawienie początkowej wartości statusu na Failure
-    OperationStatus status = OperationStatus::ERROR;
+    bool status = false;
 
     // Przykładowe wczytywanie danych
     if (isigopen(const_cast<char*>(record.c_str()), s, 2) < 2) {
@@ -18,7 +18,7 @@ OperationStatus Input::load_data(std::string record){
         std::cerr << "Błąd przy otwieraniu sygnału!" << std::endl;
     } else {
         // W przypadku powodzenia ustawienie statusu na Success
-        status = OperationStatus::SUCCESS;
+        status = true;
         std::cout << "Dane wczytane poprawnie." << std::endl;
         // Tutaj możesz dodać kod przetwarzający wczytane dane
     }
@@ -26,8 +26,6 @@ OperationStatus Input::load_data(std::string record){
     // Zwrócenie statusu operacji
     return status;
 };
-
-
 
 std::vector<DataPoint> Input::get_preprocessed_data(std::string filename)
 {
@@ -53,9 +51,3 @@ std::vector<DataPoint> Input::get_preprocessed_data(std::string filename)
     }
     return punktyDanych;
 };
-
-
-
-
-
-
