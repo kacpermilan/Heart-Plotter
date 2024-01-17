@@ -16,7 +16,7 @@ HRV2::HRV2() : Y(0.0), X(0.0), TiNN(0.0), SD_1(0.0), SD_2(0.0), triangular_index
 OperationStatus HRV2::generate_interval_histogram(std::vector<int> r_peaks, int fs, double HistogramBinLength) {
 
     if (r_peaks.empty()) {
-        return ERROR;
+        return error;
     }
     intervals.clear();
 
@@ -61,7 +61,7 @@ OperationStatus HRV2::generate_interval_histogram(std::vector<int> r_peaks, int 
         this->Y = *maxElement;
         this->X = static_cast<double>(std::distance(Histogram.begin(), maxElement));
     }
-    return SUCCESS;
+    return success;
 }
 
 // Funkcja do obliczania TiNN
@@ -69,11 +69,11 @@ OperationStatus HRV2::calculate_TiNN(std::vector<double> intervals) {
 
     // Sprawdü, czy wektor wejúciowy przedzia≥Ûw jest pusty
     if (intervals.empty()) {
-        return ERROR;
+        return error;
     }
 
     if (interval_histogram.empty()) {
-        return ERROR;
+        return error;
     }
 
     // Inicjalizacja zmiennych
@@ -146,13 +146,13 @@ OperationStatus HRV2::calculate_TiNN(std::vector<double> intervals) {
     std::cout << "time_N" << time_N << std::endl;
     TiNN = (time_M - time_N) * 1000.0; //wyraøany w ms
 
-    return SUCCESS;
+    return success;
 }
 
 // Funkcja obliczajπca indeks trÛjkπtny
 OperationStatus HRV2::calculate_triang_index(std::vector<double> intervals) {
     if (intervals.empty()) {
-        return ERROR;
+        return error;
     }
     // Oblicz totalRRIntervals
     size_t totalRRIntervals = intervals.size();
@@ -160,13 +160,13 @@ OperationStatus HRV2::calculate_triang_index(std::vector<double> intervals) {
     // Oblicz triangularIndex
     triangular_index = totalRRIntervals / Y;
 
-    return SUCCESS;
+    return success;
 }
 
 // Funkcja tworzπca wykres Poincare
 OperationStatus HRV2::generate_poincare(std::vector<double> intervals) {
     if (intervals.size() < 2) {
-        return ERROR;
+        return error;
     }
 
     // Tworzenie wykresu PoincarÈ
@@ -175,13 +175,13 @@ OperationStatus HRV2::generate_poincare(std::vector<double> intervals) {
         poincare_plot.emplace_back(intervals[i], intervals[i + 1]);
     }
 
-    return SUCCESS;
+    return success;
 }
 
 // Funkcja obliczajπca SD_1 i SD_2
 OperationStatus HRV2::calculate_SDs(std::vector<double> intervals) {
     if (intervals.size() < 2) {
-        return ERROR;
+        return error;
     }
 
     // Obliczanie parametrÛw SD1 i SD2
@@ -202,7 +202,7 @@ OperationStatus HRV2::calculate_SDs(std::vector<double> intervals) {
     SD_1 = std::sqrt(0.5) * sdsd;
     SD_2 = std::sqrt(2 * std::pow(sdnn, 2) - 0.5 * std::pow(sdsd, 2));
 
-    return SUCCESS;
+    return success;
 }
 
 

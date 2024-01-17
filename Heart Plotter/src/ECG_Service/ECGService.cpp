@@ -25,19 +25,19 @@ OperationStatus ECGService::perform_ecg_analysis()
 	filterParameters.samplingRate = 360;
 
 	auto ret = ecgbaseline->set_filter_type(filterType);
-	if (ret == OperationStatus::ERROR)
+	if (ret == OperationStatus::error)
 	{
 		std::cout << "Set filter type failed\n";
 		return ret;
 	}
 	ret = ecgbaseline->set_filter_parameters(filterParameters);
-	if (ret == OperationStatus::ERROR)
+	if (ret == OperationStatus::error)
 	{
 		std::cout << "Set filter params failed\n";
 		return ret;
 	}
 	ret = ecgbaseline->filter_signal(signalAnalyzed);
-	if (ret == OperationStatus::ERROR)
+	if (ret == OperationStatus::error)
 	{
 		std::cout << "Filter signal failed\n";
 		return ret;
@@ -48,20 +48,20 @@ OperationStatus ECGService::perform_ecg_analysis()
 #else
 	ret = rpeaks->detect_using_Pan_Tompkins(signalFiltered);
 #endif
-	if (ret == OperationStatus::ERROR)
+	if (ret == OperationStatus::error)
 	{
 		std::cout << "RPeaks detect failed\n";
 		return ret;
 	}
 	auto peaksDetected = rpeaks->r_peaks;
 	ret = hrv1->calculate_frequency_parameters(signalFiltered, peaksDetected);
-	if (ret == OperationStatus::ERROR)
+	if (ret == OperationStatus::error)
 	{
 		std::cout << "hrv1 frequency failed\n";
 		return ret;
 	}
 	ret = hrv1->calculate_time_parameters(signalAnalyzed, peaksDetected);
-	if (ret == OperationStatus::ERROR)
+	if (ret == OperationStatus::error)
 	{
 		std::cout << "hrv2 frequency failed\n";
 		return ret;

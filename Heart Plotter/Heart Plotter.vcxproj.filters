@@ -55,12 +55,6 @@
     <ClInclude Include="src\HRV_DFA\iHRVDFA.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="src\Input\iInput.h">
-      <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Output\iOutput.h">
-      <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="src\R_Peaks\iRPeaks.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
@@ -86,9 +80,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ECG_Service\ECGService.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Input\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

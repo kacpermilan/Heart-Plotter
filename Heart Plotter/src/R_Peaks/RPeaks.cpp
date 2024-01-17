@@ -14,7 +14,7 @@ OperationStatus RPeaks::detect_using_Pan_Tompkins(std::vector<DataPoint> signal)
 
     std::shared_ptr<const std::vector<float>> shared_ecg_signal = std::make_shared<const std::vector<float>>(electrocardiogram_signal);
     RPeaks::r_peaks = RPeaks::GetPeaksPanTompkins(shared_ecg_signal);
-    return OperationStatus::SUCCESS;
+    return OperationStatus::success;
 }
 
 //referencja do metody detect_using_Hilbert_transform, klasy RPeaks, ktora zwraca wartosc typu OperationStatus
@@ -27,7 +27,7 @@ OperationStatus RPeaks::detect_using_Hilbert_transform(std::vector<DataPoint> si
 
     std::shared_ptr<const std::vector<float>> shared_ecg_signal = std::make_shared<const std::vector<float>>(electrocardiogram_signal);
     RPeaks::r_peaks = RPeaks::GetPeaksHilbert(shared_ecg_signal);
-    return OperationStatus::SUCCESS;
+    return OperationStatus::success;
 }
 
 

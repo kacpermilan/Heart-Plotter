@@ -12,7 +12,7 @@ OperationStatus HRVDFA::short_term(std::vector<DataPoint> signal, std::vector<do
     // fluktuacja dla analizy krótkoterminowej
     st_fluctuations = fluctuations(integrate(rr_intervals), scales_st);
 
-    return OperationStatus::SUCCESS;
+    return OperationStatus::success;
 }
 
 OperationStatus HRVDFA::long_term(std::vector<DataPoint> signal, std::vector<double> r_peaks)
@@ -27,7 +27,7 @@ OperationStatus HRVDFA::long_term(std::vector<DataPoint> signal, std::vector<dou
     // fluktuacja dla analizy długoterminowej
     lt_fluctuations = fluctuations(integrate(rr_intervals), scales_lt);
 
-    return OperationStatus::SUCCESS;
+    return OperationStatus::success;
 }
 
 arma::vec HRVDFA::prepare_data(std::vector<DataPoint> signal, std::vector<double> r_peaks, int minWindow, int maxWindow)

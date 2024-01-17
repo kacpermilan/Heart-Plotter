@@ -6,7 +6,7 @@
 OperationStatus HRV1::calculate_time_parameters(std::vector<DataPoint> signal,
 	std::vector<int> r_peaks)
 {
-	OperationStatus status = ERROR;
+	OperationStatus status = error;
 
 	try
 	{
@@ -27,11 +27,11 @@ OperationStatus HRV1::calculate_time_parameters(std::vector<DataPoint> signal,
 
 		pNN50 = (NN50 / RR_diffs.n_elem) * 100;
 
-		status = SUCCESS;
+		status = success;
 	}
 	catch (...)
 	{
-		status = ERROR;
+		status = error;
 	}
 
 	return status;
@@ -41,7 +41,7 @@ OperationStatus HRV1::calculate_time_parameters(std::vector<DataPoint> signal,
 OperationStatus HRV1::calculate_frequency_parameters(std::vector<DataPoint> signal,
 	std::vector<int> r_peaks)
 {
-	OperationStatus status = ERROR;
+	OperationStatus status = error;
 
 	try
 	{
@@ -101,11 +101,11 @@ OperationStatus HRV1::calculate_frequency_parameters(std::vector<DataPoint> sign
 			TP = HF + LF + VLF;
 		}
 
-		status = SUCCESS;
+		status = success;
 	}
 	catch (...)
 	{
-		status = ERROR;
+		status = error;
 	}
 
 	return status;

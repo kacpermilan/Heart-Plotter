@@ -236,7 +236,7 @@ public:
 
 OperationStatus ECGBaseline::set_filter_type(iECGBaseline::FilterType filterType) {
     this->filter_type = filterType;
-    return SUCCESS;
+    return success;
 }
 
 
@@ -245,32 +245,32 @@ OperationStatus ECGBaseline::set_filter_parameters(iECGBaseline::FilterParameter
     switch (this->filter_type) {
     case MOVING_AVERAGE_FILTER:
         if (filterParams.windowSize <= 0) {
-            return ERROR;
+            return error;
         }
         break;
 
     case BUTTERWORTH_FILTER:
         if (filterParams.order <= 0 || filterParams.cutoff <= 0 || filterParams.cutoff >= filterParams.samplingRate / 2) {
-            return ERROR;
+            return error;
         }
         break;
 
     case SAVITZKY_GOLAY_FILTER:
         if (filterParams.windowSize <= 0 || filterParams.windowSize % 2 == 0 || filterParams.order < 0 || filterParams.order >= filterParams.windowSize) {
-            return ERROR;
+            return error;
         }
         break;
 
     case LMS_FILTER:
         if (filterParams.windowSize <= 0 || filterParams.delta <= 0 || filterParams.delta > 1) {
-            return ERROR;
+            return error;
         }
         break;
     }
 
     // If all validations pass, set the parameters
     this->filter_parameters = filterParams;
-    return SUCCESS;
+    return success;
 }
 
 
@@ -302,6 +302,6 @@ OperationStatus ECGBaseline::filter_signal(std::vector<DataPoint> inputSignal) {
         break;
     }
 
-     return SUCCESS;
+     return success;
     }
 }
