@@ -26,11 +26,31 @@ enum OperationStatus
 	test_return = 2
 };
 
-/// Parameters - class containing all main application parameters
+/// Parameters - class containing all calculated signal parameters
 struct Parameters
 {
 	// TODO, define and add parameters
 	Parameters() = default;
+
+	// HRV1
+	double RR_mean;
+	double SDNN;
+	double RMSSD;
+	double NN50;
+	double pNN50;
+	double ULF;
+	double VLF;
+	double LF;
+	double HF;
+	double LFHF;
+	double TP;
+	
+	// HRV2
+	double TiNN;
+	double triangular_index;
+	double SD_1;
+	double SD_2;
+
 };
 
 /// PlotType - enum containing used types of plots

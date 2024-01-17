@@ -12,17 +12,19 @@ ECGService::ECGService()
 	, hrv1(std::make_unique<HRV1>())
 	, hrv2(std::make_unique<HRV2>())
 	, rpeaks(std::make_unique<RPeaks>())
+	, was_analysis_performed(false)
 {}
 
 OperationStatus ECGService::perform_ecg_analysis()
 {
-	auto signalAnalyzed = temp_mock_signal::mockSignal; // TODO TODO TODO, load signal from GUI somehow
+	auto signalAnalyzed = temp_mock_signal::mockSignal; // TODO TODO TODO, load signal from GUI somehow, same with parameters
 	auto filterType = iECGBaseline::FilterType::BUTTERWORTH_FILTER;
 	auto filterParameters = iECGBaseline::FilterParameters();
 	filterParameters.windowSize = 20;
 	filterParameters.cutoff = 50;
 	filterParameters.order = 3;
 	filterParameters.samplingRate = 360;
+	
 
 	auto ret = ecgbaseline->set_filter_type(filterType);
 	if (ret == OperationStatus::error)
@@ -67,11 +69,37 @@ OperationStatus ECGService::perform_ecg_analysis()
 		return ret;
 	}
 	std::cout << "LF/HF = " << hrv1->LFHF << ", NN50 = " << hrv1->NN50 << "\n";
+	
+	// parameters setting
+
+	// hrv1
+	calculated_params.RR_mean = hrv1->RR_mean;
+	calculated_params.SDNN = hrv1->SDNN;
+	calculated_params.RMSSD = hrv1->RMSSD;
+	calculated_params.NN50 = hrv1->NN50;
+	calculated_params.pNN50 = hrv1->pNN50;
+	calculated_params.ULF = hrv1->ULF;
+	calculated_params.VLF = hrv1->VLF;
+	calculated_params.LF = hrv1->LF;
+	calculated_params.HF = hrv1->HF;
+	calculated_params.LFHF = hrv1->LFHF;
+	calculated_params.TP = hrv1->TP;
+
+
+	was_analysis_performed = true;
+	return OperationStatus::success;
 }
 
 Parameters ECGService::get_parameters()
 {
-	return Parameters();
+	if (was_analysis_performed)
+	{
+		return this->calculated_params;
+	}
+	else
+	{
+		return Parameters();
+	}
 }
 
 std::vector<DataPoint> ECGService::get_plot_data(PlotType plottype)

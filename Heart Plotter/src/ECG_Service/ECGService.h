@@ -26,6 +26,9 @@ public:
 	std::unique_ptr<iSTSegment> stsegment;
 	std::unique_ptr<iTWaveAlt> twavealt;
 	std::unique_ptr<iWaves> waves;
+private:
+	Parameters calculated_params;
+	bool was_analysis_performed;
 };
 
 // This is bad, but no time
