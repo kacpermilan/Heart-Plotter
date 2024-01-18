@@ -27,7 +27,7 @@ public:
 	virtual ~iECGService() = default;
 
 	// perform ECG analysis, main functionality
-	virtual OperationStatus perform_ecg_analysis() = 0;
+	virtual OperationStatus perform_ecg_analysis(std::vector<DataPoint> signal) = 0;
 
 	// getter method
 	virtual Parameters get_parameters() = 0;

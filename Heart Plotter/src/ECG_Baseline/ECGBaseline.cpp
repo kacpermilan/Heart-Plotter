@@ -281,27 +281,26 @@ OperationStatus ECGBaseline::filter_signal(std::vector<DataPoint> inputSignal) {
 
     // Check the filter type and apply the corresponding filter
     switch (this->filter_type) {
-    case MOVING_AVERAGE_FILTER: {
-        MovingAverageFilter SMA_filter;
-        SMA_filter.apply(inputSignal, this->filtered_signal, this->filter_parameters.windowSize);
-        break;
+        case MOVING_AVERAGE_FILTER: {
+            MovingAverageFilter SMA_filter;
+            SMA_filter.apply(inputSignal, this->filtered_signal, this->filter_parameters.windowSize);
+            break;
+        }
+        case SAVITZKY_GOLAY_FILTER: {
+            SavitzkyGolayFilter SG_filter;
+            SG_filter.apply(inputSignal, this->filtered_signal, this->filter_parameters.windowSize, this->filter_parameters.order);
+            break;
+        }
+        case LMS_FILTER: {
+            LMSFilter LMS_filter;
+            LMS_filter.apply(inputSignal, this->filtered_signal, this->filter_parameters.windowSize, this->filter_parameters.delta);
+            break;
+        }
+        case BUTTERWORTH_FILTER: {
+            ButterworthFilter BW_filter;
+            BW_filter.apply(inputSignal, this->filtered_signal, this->filter_parameters.order, this->filter_parameters.cutoff, this->filter_parameters.samplingRate);
+            break;
+        }
     }
-    case SAVITZKY_GOLAY_FILTER: {
-        SavitzkyGolayFilter SG_filter;
-        SG_filter.apply(inputSignal, this->filtered_signal, this->filter_parameters.windowSize, this->filter_parameters.order);
-        break;
-    }
-    case LMS_FILTER: {
-        LMSFilter LMS_filter;
-        LMS_filter.apply(inputSignal, this->filtered_signal, this->filter_parameters.windowSize, this->filter_parameters.delta);
-        break;
-    }
-    case BUTTERWORTH_FILTER: {
-        ButterworthFilter BW_filter;
-        BW_filter.apply(inputSignal, this->filtered_signal, this->filter_parameters.order, this->filter_parameters.cutoff, this->filter_parameters.samplingRate);
-        break;
-    }
-
-     return success;
-    }
+    return success;
 }

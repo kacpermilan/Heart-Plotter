@@ -66,11 +66,11 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);$(SolutionDir)\Heart Plotter - App\wfdb\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);$(SolutionDir)\Heart Plotter - App\wfdb\include;$(SolutionDir)\Heart Plotter\src;$(SolutionDir)\Heart Plotter\lib\armadillo\include;$(SolutionDir)\Heart Plotter\lib\gsl\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Heart Plotter - App\wfdb\lib;$(SolutionDir)\Heart Plotter - App\wfdb\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libwfdb.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Heart Plotter - App\wfdb\lib;$(SolutionDir)\Heart Plotter - App\wfdb\bin;$(SolutionDir)\Heart Plotter\lib\armadillo\examples\lib_win64;$(SolutionDir)\Heart Plotter\lib\gsl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libwfdb.dll.a;gslcblas.lib;gsl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d  "$(SolutionDir)\Heart Plotter - App\wfdb\bin\*.dll" "$(TargetDir)"</Command>
@@ -78,11 +78,11 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);$(SolutionDir)\Heart Plotter - App\wfdb\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);$(SolutionDir)\Heart Plotter - App\wfdb\include;$(SolutionDir)\Heart Plotter\src;$(SolutionDir)\Heart Plotter\lib\armadillo\include;$(SolutionDir)\Heart Plotter\lib\gsl\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Heart Plotter - App\wfdb\lib;$(SolutionDir)\Heart Plotter - App\wfdb\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libwfdb.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Heart Plotter - App\wfdb\lib;$(SolutionDir)\Heart Plotter - App\wfdb\bin;$(SolutionDir)\Heart Plotter\lib\armadillo\examples\lib_win64;$(SolutionDir)\Heart Plotter\lib\gsl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libwfdb.dll.a;gslcblas.lib;gsl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d  "$(SolutionDir)\Heart Plotter - App\wfdb\bin\*.dll" "$(TargetDir)"</Command>

@@ -8,7 +8,7 @@ public:
 	ECGService();
 
 	// perform ECG analysis, main functionality
-	OperationStatus perform_ecg_analysis() override;
+	OperationStatus perform_ecg_analysis(std::vector<DataPoint> signal) override;
 
 	// getter method
 	Parameters get_parameters() override;
@@ -30,9 +30,3 @@ private:
 	Parameters calculated_params;
 	bool was_analysis_performed;
 };
-
-// This is bad, but no time
-namespace temp_mock_signal
-{
-	static std::vector<DataPoint> mockSignal;
-}

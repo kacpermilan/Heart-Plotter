@@ -1,6 +1,7 @@
 #include "HeartPlotterApp.h"
 #include "qcustomplot/qcustomplot.h"
 #include "Input.h"
+#include <ECG_Service/ECGService.h>
 
 HeartPlotterApp::HeartPlotterApp(QWidget* parent)
     : QMainWindow(parent)
@@ -42,6 +43,10 @@ void HeartPlotterApp::refresh_plot_data(std::string signal_name)
          loaded_signal = input->get_preprocessed_data(signal_name);
     }
 
+    ECGService service = ECGService();
+    service.perform_ecg_analysis(loaded_signal);
+    Parameters params = service.get_parameters();
+
     // Get a QCustomPlot widget
     QCustomPlot* customPlot = ui.plot;
     customPlot->clearGraphs();
@@ -82,20 +87,32 @@ void HeartPlotterApp::refresh_plot_data(std::string signal_name)
     dataTable->clear();
 
     dataTable->setColumnCount(2);
-    dataTable->setRowCount(xData.size());
+    dataTable->setRowCount(15);
 
     // Set headers for the table
     QStringList headers;
-    headers << x_axis.data() << y_axis.data();
+    headers << "Parameter" << "Value";
     dataTable->setHorizontalHeaderLabels(headers);
 
-    // Populate the table with data
-    for (int i = 0; i < xData.size(); ++i) {
-        QTableWidgetItem* itemX = new QTableWidgetItem(QString::number(xData[i]));
-        QTableWidgetItem* itemY = new QTableWidgetItem(QString::number(yData[i]));
+    // List of parameter names
+    QStringList paramNames = {
+        "RR_mean", "SDNN", "RMSSD", "NN50", "pNN50", "ULF", "VLF", "LF", 
+        "HF", "LFHF", "TP", "TiNN", "triangular_index", "SD_1", "SD_2"
+    };
 
-        dataTable->setItem(i, 0, itemX);
-        dataTable->setItem(i, 1, itemY);
+    double paramValues[15] = {
+        params.RR_mean, params.SDNN, params.RMSSD, params.NN50, params.pNN50, 
+        params.ULF, params.VLF, params.LF, params.HF, params.LFHF, params.TP, 
+        params.TiNN, params.triangular_index, params.SD_1, params.SD_2
+    };
+
+    // Populate the table with data
+    for (int i = 0; i < 15; ++i) {
+        QTableWidgetItem* itemName = new QTableWidgetItem(paramNames[i]);
+        QTableWidgetItem* itemValue = new QTableWidgetItem(QString::number(paramValues[i]));
+
+        dataTable->setItem(i, 0, itemName);
+        dataTable->setItem(i, 1, itemValue);
     }
 
     // Rescale axes and replot

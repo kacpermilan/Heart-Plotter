@@ -101,9 +101,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ECG_Service\temp_main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\ECG_Baseline\ECGBaseline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

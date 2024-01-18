@@ -40,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -166,7 +166,6 @@
   <ItemGroup>
     <ClCompile Include="src\ECG_Baseline\ECGBaseline.cpp" />
     <ClCompile Include="src\ECG_Service\ECGService.cpp" />
-    <ClCompile Include="src\ECG_Service\temp_main.cpp" />
     <ClCompile Include="src\HRV1\HRV1.cpp" />
     <ClCompile Include="src\HRV2\HRV2.cpp" />
     <ClCompile Include="src\HRV_DFA\HRVDFA.cpp" />

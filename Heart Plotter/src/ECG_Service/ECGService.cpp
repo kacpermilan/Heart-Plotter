@@ -6,6 +6,8 @@
 
 # include <iostream>
 
+#define HILBERT_TRANSFORM
+
 // ideally parameters should be passed to constructor, but this is faster
 ECGService::ECGService() 
 	: ecgbaseline(std::make_unique<ECGBaseline>())
@@ -15,9 +17,9 @@ ECGService::ECGService()
 	, was_analysis_performed(false)
 {}
 
-OperationStatus ECGService::perform_ecg_analysis()
+OperationStatus ECGService::perform_ecg_analysis(std::vector<DataPoint> signal)
 {
-	auto signalAnalyzed = temp_mock_signal::mockSignal; // TODO TODO TODO, load signal from GUI somehow, same with parameters
+	auto signalAnalyzed = signal;
 	auto filterType = iECGBaseline::FilterType::BUTTERWORTH_FILTER;
 	auto filterParameters = iECGBaseline::FilterParameters();
 	filterParameters.windowSize = 20;
@@ -56,6 +58,8 @@ OperationStatus ECGService::perform_ecg_analysis()
 		return ret;
 	}
 	auto peaksDetected = rpeaks->r_peaks;
+
+	// hrv1
 	ret = hrv1->calculate_frequency_parameters(signalFiltered, peaksDetected);
 	if (ret == OperationStatus::error)
 	{
@@ -65,14 +69,10 @@ OperationStatus ECGService::perform_ecg_analysis()
 	ret = hrv1->calculate_time_parameters(signalAnalyzed, peaksDetected);
 	if (ret == OperationStatus::error)
 	{
-		std::cout << "hrv2 frequency failed\n";
+		std::cout << "hrv1 time failed\n";
 		return ret;
 	}
-	std::cout << "LF/HF = " << hrv1->LFHF << ", NN50 = " << hrv1->NN50 << "\n";
-	
-	// parameters setting
 
-	// hrv1
 	calculated_params.RR_mean = hrv1->RR_mean;
 	calculated_params.SDNN = hrv1->SDNN;
 	calculated_params.RMSSD = hrv1->RMSSD;
@@ -85,6 +85,18 @@ OperationStatus ECGService::perform_ecg_analysis()
 	calculated_params.LFHF = hrv1->LFHF;
 	calculated_params.TP = hrv1->TP;
 
+	// hrv2
+	ret = hrv2->generate_interval_histogram(peaksDetected, 360, 0.008);
+	if (ret == OperationStatus::error)
+	{
+		std::cout << "hrv2 histogram failed\n";
+		return ret;
+	}
+	
+	calculated_params.TiNN = hrv2->TiNN;
+	calculated_params.triangular_index = hrv2->triangular_index; 
+	calculated_params.SD_1 = hrv2->SD_1;
+	calculated_params.SD_2 = hrv2->SD_2;
 
 	was_analysis_performed = true;
 	return OperationStatus::success;
