@@ -108,7 +108,7 @@ OperationStatus ECGService::perform_ecg_analysis(std::vector<DataPoint> signal)
 	calculated_params.SD_2 = hrv2->getSD_2();
 
 	//ret = hrvdfa->short_term(signalAnalyzed, intervals);
-	ret = hrvdfa->long_term(signalAnalyzed, intervals);
+	//ret = hrvdfa->long_term(signalAnalyzed, intervals);
 
 	was_analysis_performed = true;
 	return OperationStatus::success;
