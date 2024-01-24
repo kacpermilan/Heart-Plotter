@@ -30,6 +30,12 @@ public:
 	// generate SDs
 	virtual OperationStatus calculate_SDs(std::vector<double> intervals) = 0;
 
+	virtual std::vector<double> getIntervals() const { return intervals; }
+
+	virtual double getTiNN() const { return TiNN; }
+    virtual double getTriangularIndex() const { return triangular_index; }
+    virtual double getSD_1() const { return SD_1; }
+    virtual double getSD_2() const { return SD_2; }
 
 	// calculated parameters
 	std::vector<DataPoint> interval_histogram;
@@ -38,4 +44,5 @@ public:
 	double triangular_index;
 	double SD_1;
 	double SD_2;
+	std::vector<double> intervals;
 };

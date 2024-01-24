@@ -19,7 +19,7 @@ public:
 
 	// analyze long term dependencies from ECG signal
 	virtual OperationStatus long_term(std::vector<DataPoint> signal, std::vector<double> r_peaks) = 0;
-	
+
 
 	// long term
 	std::vector<DataPoint> lt_alpha;

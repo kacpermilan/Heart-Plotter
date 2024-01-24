@@ -139,6 +139,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\README.md" />
     <None Include="doc\class_diagram.drawio" />
   </ItemGroup>
   <ItemGroup>

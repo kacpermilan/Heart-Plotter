@@ -6,6 +6,8 @@
 
 # include <iostream>
 
+#include "../HRV_DFA/HRVDFA.h"
+
 #define HILBERT_TRANSFORM
 
 // ideally parameters should be passed to constructor, but this is faster
@@ -13,6 +15,7 @@ ECGService::ECGService()
 	: ecgbaseline(std::make_unique<ECGBaseline>())
 	, hrv1(std::make_unique<HRV1>())
 	, hrv2(std::make_unique<HRV2>())
+	, hrvdfa(std::make_unique<HRVDFA>())
 	, rpeaks(std::make_unique<RPeaks>())
 	, was_analysis_performed(false)
 {}
@@ -92,11 +95,20 @@ OperationStatus ECGService::perform_ecg_analysis(std::vector<DataPoint> signal)
 		std::cout << "hrv2 histogram failed\n";
 		return ret;
 	}
+
+	auto intervals = hrv2->getIntervals();
+
+	ret = hrv2->calculate_TiNN(intervals);
+	ret = hrv2->calculate_triang_index(intervals);
+	ret = hrv2->calculate_SDs(intervals);
 	
-	calculated_params.TiNN = hrv2->TiNN;
-	calculated_params.triangular_index = hrv2->triangular_index; 
-	calculated_params.SD_1 = hrv2->SD_1;
-	calculated_params.SD_2 = hrv2->SD_2;
+	calculated_params.TiNN = hrv2->getTiNN();
+	calculated_params.triangular_index = hrv2->getTriangularIndex(); 
+	calculated_params.SD_1 = hrv2->getSD_1();
+	calculated_params.SD_2 = hrv2->getSD_2();
+
+	//ret = hrvdfa->short_term(signalAnalyzed, intervals);
+	ret = hrvdfa->long_term(signalAnalyzed, intervals);
 
 	was_analysis_performed = true;
 	return OperationStatus::success;

@@ -24,6 +24,9 @@
     <None Include="doc\class_diagram.drawio">
       <Filter>Documentation Files</Filter>
     </None>
+    <None Include="..\README.md">
+      <Filter>Documentation Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="doc\class_diagram.png">

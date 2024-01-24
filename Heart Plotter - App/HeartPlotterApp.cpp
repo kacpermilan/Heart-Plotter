@@ -36,6 +36,7 @@ void HeartPlotterApp::refresh_plot_data(std::string signal_name)
     const std::string x_axis = "Time";
     const std::string y_axis = "Amplitude";
 
+    // Loading the input signal
     const auto input = new Input();
     std::vector<DataPoint> loaded_signal;
     if (input->check_availability(signal_name))
@@ -81,6 +82,15 @@ void HeartPlotterApp::refresh_plot_data(std::string signal_name)
     customPlot->graph(0)->setPen(QPen(Qt::blue));
     customPlot->graph(0)->setData(xData, yData);
     customPlot->graph(0)->setName(signal_name.data());
+
+    
+    /*customPlot->addGraph();
+    customPlot->graph(1)->setPen(QPen(Qt::red));
+    customPlot->graph(1)->setLineStyle(QCPGraph::lsNone);
+    customPlot->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 7));
+    customPlot->graph(1)->setData(xData, yData);
+    customPlot->graph(1)->setName("Data markers");*/
+    
 
     // Get and populate the table widget
     QTableWidget* dataTable = ui.table;
