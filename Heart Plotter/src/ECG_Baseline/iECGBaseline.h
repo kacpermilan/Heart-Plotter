@@ -3,6 +3,7 @@ File - iECGBaseline.h
 Desc - definition of interface for ECGBaseline
 */
 
+#pragma once
 
 #include "../Common_Types/CommonTypes.h"
 
@@ -14,13 +15,21 @@ class iECGBaseline
 public:
 	enum FilterType
 	{
-		TEST_FILTERTYPE = 0,
-		// TODO define and add filter types
+		MOVING_AVERAGE_FILTER = 0,
+		BUTTERWORTH_FILTER,
+		SAVITZKY_GOLAY_FILTER,
+		LMS_FILTER,
 	};
 
 	struct FilterParameters
 	{
-		// TODO define and add filter parameters
+		int windowSize;
+		int order;
+		double delta;
+		double cutoff;
+		double samplingRate;
+
+		FilterParameters() = default;
 	};
 
 	virtual ~iECGBaseline() = default;

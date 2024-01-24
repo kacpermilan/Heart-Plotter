@@ -1,7 +1,10 @@
+#pragma once
 /*
 File - CommonTypes.h
 Desc - Definitions for common datatypes and enums used in project
 */
+
+#pragma once
 
 /// DataPoint - basic struct for holding singular record, most signals will be in std::vector<DataPoint>
 struct DataPoint 
@@ -18,16 +21,36 @@ struct DataPoint
 /// OperationStatus - enum holding return status for input/output operations
 enum OperationStatus
 {
-	ERROR = 0,
-	SUCCESS = 1,
-	TEST_RETURN = 2
+	error = 0,
+	success = 1,
+	test_return = 2
 };
 
-/// Parameters - class containing all main application parameters
+/// Parameters - class containing all calculated signal parameters
 struct Parameters
 {
 	// TODO, define and add parameters
 	Parameters() = default;
+
+	// HRV1
+	double RR_mean;
+	double SDNN;
+	double RMSSD;
+	double NN50;
+	double pNN50;
+	double ULF;
+	double VLF;
+	double LF;
+	double HF;
+	double LFHF;
+	double TP;
+	
+	// HRV2
+	double TiNN;
+	double triangular_index;
+	double SD_1;
+	double SD_2;
+
 };
 
 /// PlotType - enum containing used types of plots
